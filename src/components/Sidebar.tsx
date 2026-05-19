@@ -18,6 +18,7 @@ function getMenuItems(role: Role): MenuItem[] {
       { label: 'Dashboard', path: '/admin', icon: 'dashboard' },
       { label: 'Data Siswa', path: '/admin/registrasi', icon: 'users' },
       { label: 'Kelas', path: '/admin/kelas', icon: 'master' },
+      { label: 'Mata Pelajaran', path: '/admin/courses', icon: 'elearning' },
       { label: 'Jadwal Mengajar', path: '/admin/jadwal-mengajar', icon: 'exam' },
       { label: 'Materi Pembelajaran', path: '/admin/materials', icon: 'elearning' },
       { label: 'E-Learning', path: '/admin/jadwal-ujian', icon: 'bank' },
@@ -116,11 +117,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       <aside className={`fixed top-0 left-0 h-full z-50 bg-gradient-to-b from-primary-800 to-primary-900 text-white w-64 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:z-auto flex flex-col`}>
         <div className="p-4 border-b border-primary-700">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-            </div>
+            <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-10 h-10 rounded-lg" />
             <div>
               <h1 className="font-bold text-sm">SD Kartika X-2</h1>
               <p className="text-xs text-primary-200">LMS</p>
