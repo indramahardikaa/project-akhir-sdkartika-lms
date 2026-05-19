@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import DashboardLayout from '@/components/DashboardLayout';
-import { getForumTasks, getCourses, getEnrollmentsBySiswa, getSubmissionsBySiswa, createTaskSubmission } from '@/lib/data';
+import { getForumTasks, getCourses, getCourseIdsForSiswa, getSubmissionsBySiswa, createTaskSubmission } from '@/lib/data';
 import { ForumTask, TaskSubmission } from '@/types';
 
 export default function SiswaForumTugasPage() {
@@ -22,10 +22,9 @@ export default function SiswaForumTugasPage() {
   const loadData = () => {
     if (!user) return;
     const courses = getCourses();
-    const enrollments = getEnrollmentsBySiswa(user.id);
-    const enrolledCourseIds = enrollments.map(e => e.courseId);
+    const accessibleCourseIds = getCourseIdsForSiswa(user.id);
     const submissions = getSubmissionsBySiswa(user.id);
-    const allTasks = getForumTasks().filter(t => enrolledCourseIds.includes(t.courseId));
+    const allTasks = getForumTasks().filter(t => accessibleCourseIds.includes(t.courseId));
     setTasks(allTasks.map(t => {
       const sub = submissions.find(s => s.taskId === t.id);
       return { ...t, courseName: courses.find(c => c.id === t.courseId)?.title || '-', submitted: !!sub, grade: sub?.grade };

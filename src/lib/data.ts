@@ -437,6 +437,23 @@ export function createExamResult(r: Omit<ExamResult, 'id' | 'submittedAt'>): Exa
   return newItem;
 }
 
+// Helper: get courseIds accessible to a siswa based on their kelas via JadwalPelajaran
+export function getCourseIdsForSiswa(siswaId: string): string[] {
+  const user = getUserById(siswaId);
+  if (!user || !user.kelas) return [];
+  const kelas = getKelas().find(k => k.name === user.kelas);
+  if (!kelas) return [];
+  const jadwal = getJadwalByKelas(kelas.id);
+  const courseIdsFromJadwal = jadwal.map(j => j.courseId);
+  // Also include enrolled courses
+  const enrolledIds = getEnrollmentsBySiswa(siswaId).map(e => e.courseId);
+  // Merge both (unique)
+  const allIds = [...new Set([...courseIdsFromJadwal, ...enrolledIds])];
+  // If no jadwal and no enrollment, return ALL courses (so new students can still see content)
+  if (allIds.length === 0) return getCourses().map(c => c.id);
+  return allIds;
+}
+
 // ActivityLog CRUD
 export function getActivityLogs(): ActivityLog[] { return getFromStorage('lms_activity_logs', defaultActivityLogs); }
 export function addActivityLog(log: Omit<ActivityLog, 'id' | 'createdAt'>): ActivityLog {

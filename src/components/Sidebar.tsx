@@ -47,6 +47,7 @@ function getMenuItems(role: Role): MenuItem[] {
     { label: 'Dashboard', path: '/siswa', icon: 'dashboard' },
     { label: 'Materi Pembelajaran', path: '/siswa/materials', icon: 'elearning' },
     { label: 'E-Learning', path: '/siswa/elearning', icon: 'bank' },
+    { label: 'Ujian', path: '/siswa/ujian', icon: 'exam' },
     { label: 'Nilai', path: '/siswa/nilai', icon: 'grade' },
     { label: 'Forum Tugas', path: '/siswa/forum-tugas', icon: 'elearning' },
   ];

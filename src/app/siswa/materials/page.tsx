@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import DashboardLayout from '@/components/DashboardLayout';
-import { getEnrollmentsBySiswa, getCourses, getMaterialsByCourse } from '@/lib/data';
+import { getCourseIdsForSiswa, getCourses, getMaterialsByCourse } from '@/lib/data';
 import { Course, Material } from '@/types';
 
 export default function SiswaMaterialsPage() {
@@ -16,10 +16,10 @@ export default function SiswaMaterialsPage() {
   useEffect(() => {
     if (isLoading) return;
     if (!user || user.role !== 'siswa') { router.push('/login'); return; }
-    const enrollments = getEnrollmentsBySiswa(user.id);
+    const accessibleCourseIds = getCourseIdsForSiswa(user.id);
     const courses = getCourses();
-    const data = enrollments.map(e => {
-      const course = courses.find(c => c.id === e.courseId);
+    const data = accessibleCourseIds.map(courseId => {
+      const course = courses.find(c => c.id === courseId);
       if (!course) return null;
       return { course, materials: getMaterialsByCourse(course.id) };
     }).filter(Boolean) as {course: Course; materials: Material[]}[];
