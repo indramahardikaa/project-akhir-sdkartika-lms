@@ -30,7 +30,6 @@ function getMenuItems(role: Role): MenuItem[] {
       { label: 'Manajemen User', path: '/admin/users', icon: 'settings' },
     ];
   }
-
   if (role === 'guru') {
     return [
       { label: 'Dashboard', path: '/guru', icon: 'dashboard' },
@@ -43,7 +42,6 @@ function getMenuItems(role: Role): MenuItem[] {
       { label: 'Pengumuman', path: '/guru/pengumuman', icon: 'announce' },
     ];
   }
-  // siswa
   return [
     { label: 'Dashboard', path: '/siswa', icon: 'dashboard' },
     { label: 'Materi Pembelajaran', path: '/siswa/materials', icon: 'elearning' },
@@ -53,7 +51,6 @@ function getMenuItems(role: Role): MenuItem[] {
     { label: 'Forum Tugas', path: '/siswa/forum-tugas', icon: 'elearning' },
   ];
 }
-
 
 function getIcon(icon: string) {
   const icons: Record<string, string> = {
@@ -77,7 +74,6 @@ interface SidebarProps {
   onClose: () => void;
 }
 
-
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user, logout } = useAuth();
   const router = useRouter();
@@ -94,78 +90,82 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     );
   };
 
-  const isActive = (path?: string) => {
-    if (!path) return false;
-    return pathname === path;
-  };
+  const isActive = (path?: string) => path ? pathname === path : false;
 
-  const handleLogout = () => {
-    logout();
-    router.push('/login');
-  };
-
-  const handleNavigate = (path: string) => {
-    router.push(path);
-    onClose();
-  };
+  const handleLogout = () => { logout(); router.push('/login'); };
+  const handleNavigate = (path: string) => { router.push(path); onClose(); };
 
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={onClose} />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden animate-fade-in" onClick={onClose} />
       )}
-      <aside className={`fixed top-0 left-0 h-full z-50 bg-gradient-to-b from-primary-800 to-primary-900 text-white w-64 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:z-auto flex flex-col`}>
-        <div className="p-4 border-b border-primary-700">
+      <aside className={`fixed top-0 left-0 h-full z-50 w-[270px] transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:z-auto flex flex-col gradient-sidebar shadow-2xl`}>
+        {/* Logo Section */}
+        <div className="p-5 border-b border-white/10">
           <div className="flex items-center space-x-3">
-            <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-10 h-10 rounded-lg" />
+            <div className="relative">
+              <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-11 h-11 rounded-xl shadow-lg ring-2 ring-white/20" />
+              <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-green-900"></div>
+            </div>
             <div>
-              <h1 className="font-bold text-sm">SD Kartika X-2</h1>
-              <p className="text-xs text-primary-200">LMS</p>
+              <h1 className="font-bold text-sm text-white tracking-wide">SD Kartika X-2</h1>
+              <p className="text-[11px] text-green-300/80 font-medium">Learning Management System</p>
             </div>
           </div>
         </div>
-        <div className="p-4 border-b border-primary-700">
-          <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center text-sm font-bold">
+
+        {/* User Profile */}
+        <div className="px-5 py-4 border-b border-white/10">
+          <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-200">
+            <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md ring-2 ring-white/20">
               {user.name.charAt(0)}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{user.name}</p>
-              <p className="text-xs text-primary-300 capitalize">{user.role}</p>
+              <p className="text-sm font-semibold text-white truncate">{user.name}</p>
+              <p className="text-[11px] text-green-300/70 capitalize font-medium">{user.role === 'admin' ? 'Administrator' : user.role}</p>
             </div>
           </div>
         </div>
 
-
-        <div className="flex-1 overflow-y-auto py-4">
-          <p className="px-4 text-xs font-semibold text-primary-300 uppercase tracking-wider mb-2">Menu Utama</p>
-          <nav className="space-y-1 px-2">
-            {menuItems.map((item) => (
-              <div key={item.label}>
+        {/* Navigation */}
+        <div className="flex-1 overflow-y-auto py-4 px-3">
+          <p className="px-3 text-[10px] font-bold text-green-400/60 uppercase tracking-[0.15em] mb-3">Menu Utama</p>
+          <nav className="space-y-0.5">
+            {menuItems.map((item, index) => (
+              <div key={item.label} className={`animate-slide-in stagger-${Math.min(index + 1, 6)}`} style={{opacity: 0}}>
                 {item.submenu ? (
                   <>
                     <button
                       onClick={() => toggleSubmenu(item.label)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-colors hover:bg-primary-700/50 ${
-                        item.submenu.some(s => pathname === s.path) ? 'bg-primary-700/70 text-white' : 'text-primary-100'
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-all duration-200 group ${
+                        item.submenu.some(s => pathname === s.path)
+                          ? 'bg-white/15 text-white shadow-sm'
+                          : 'text-green-100/80 hover:bg-white/8 hover:text-white'
                       }`}
                     >
                       <div className="flex items-center space-x-3">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={getIcon(item.icon)} />
-                        </svg>
-                        <span>{item.label}</span>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 ${
+                          item.submenu.some(s => pathname === s.path) ? 'bg-white/20' : 'bg-white/5 group-hover:bg-white/10'
+                        }`}>
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={getIcon(item.icon)} />
+                          </svg>
+                        </div>
+                        <span className="font-medium">{item.label}</span>
                       </div>
-                      <svg className={`w-4 h-4 transition-transform ${expandedMenus.includes(item.label) ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-4 h-4 transition-transform duration-200 ${expandedMenus.includes(item.label) ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
                     {expandedMenus.includes(item.label) && (
-                      <div className="ml-8 mt-1 space-y-1">
+                      <div className="ml-11 mt-1 space-y-0.5 animate-fade-in-down">
                         {item.submenu.map((sub) => (
                           <button key={sub.path} onClick={() => handleNavigate(sub.path)}
-                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                              pathname === sub.path ? 'bg-white/20 text-white font-medium' : 'text-primary-200 hover:bg-primary-700/50'
+                            className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                              pathname === sub.path
+                                ? 'bg-white/20 text-white font-semibold pl-4 border-l-2 border-green-400'
+                                : 'text-green-200/70 hover:bg-white/8 hover:text-white hover:pl-4'
                             }`}>
                             {sub.label}
                           </button>
@@ -175,26 +175,41 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                   </>
                 ) : (
                   <button onClick={() => handleNavigate(item.path!)}
-                    className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                      isActive(item.path) ? 'bg-white/20 text-white font-medium' : 'text-primary-100 hover:bg-primary-700/50'
+                    className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm transition-all duration-200 group ${
+                      isActive(item.path)
+                        ? 'bg-white/15 text-white font-semibold shadow-sm backdrop-blur-sm'
+                        : 'text-green-100/80 hover:bg-white/8 hover:text-white'
                     }`}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={getIcon(item.icon)} />
-                    </svg>
-                    <span>{item.label}</span>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                      isActive(item.path)
+                        ? 'bg-gradient-to-br from-green-400/30 to-emerald-500/30 shadow-sm'
+                        : 'bg-white/5 group-hover:bg-white/10'
+                    }`}>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={getIcon(item.icon)} />
+                      </svg>
+                    </div>
+                    <span className="font-medium">{item.label}</span>
+                    {isActive(item.path) && (
+                      <div className="ml-auto w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse-glow"></div>
+                    )}
                   </button>
                 )}
               </div>
             ))}
           </nav>
         </div>
-        <div className="p-4 border-t border-primary-700">
+
+        {/* Logout */}
+        <div className="p-4 border-t border-white/10">
           <button onClick={handleLogout}
-            className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm text-primary-100 hover:bg-accent-600 hover:text-white transition-colors">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-            <span>Keluar</span>
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm text-green-100/80 hover:bg-accent-600/90 hover:text-white transition-all duration-200 group">
+            <div className="w-8 h-8 rounded-lg bg-white/5 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-200">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </div>
+            <span className="font-medium">Keluar</span>
           </button>
         </div>
       </aside>
