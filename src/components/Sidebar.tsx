@@ -105,7 +105,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="p-5 border-b border-white/10">
           <div className="flex items-center space-x-3">
             <div className="relative">
-              <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-11 h-11 rounded-xl shadow-lg ring-2 ring-white/20" />
+              <img src="/logo-sekolah.png" alt="Logo SD Kartika X-2" className="w-11 h-11 rounded-xl shadow-lg ring-2 ring-white/20 bg-white p-0.5" />
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-green-900"></div>
             </div>
             <div>

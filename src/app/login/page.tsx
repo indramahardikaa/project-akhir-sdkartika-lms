@@ -48,7 +48,7 @@ export default function LoginPage() {
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center px-16 text-white">
           <div className="mb-8">
-            <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-20 h-20 rounded-2xl" />
+            <img src="/logo-sekolah.png" alt="Logo SD Kartika X-2" className="w-20 h-20 rounded-2xl bg-white p-1 shadow-lg" />
             <h1 className="text-4xl font-bold mb-4">SD Kartika X-2</h1>
             <h2 className="text-2xl font-light text-white/90 mb-2">Learning Management System</h2>
             <p className="text-lg text-white/70 leading-relaxed max-w-md">
@@ -88,7 +88,7 @@ export default function LoginPage() {
         <div className="w-full max-w-md animate-fade-in">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-8">
-            <img src="/logo-sekolah.svg" alt="Logo SD Kartika X-2" className="w-16 h-16 rounded-2xl mx-auto mb-4" />
+            <img src="/logo-sekolah.png" alt="Logo SD Kartika X-2" className="w-16 h-16 rounded-2xl mx-auto mb-4 bg-white p-1 shadow-md" />
             <h1 className="text-2xl font-bold text-gray-800">SD Kartika X-2 LMS</h1>
           </div>
 
