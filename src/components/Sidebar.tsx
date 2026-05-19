@@ -16,19 +16,13 @@ function getMenuItems(role: Role): MenuItem[] {
   if (role === 'admin') {
     return [
       { label: 'Dashboard', path: '/admin', icon: 'dashboard' },
-      { label: 'Data Master', icon: 'master', submenu: [
-        { label: 'Siswa', path: '/admin/registrasi' },
-        { label: 'Kelas/Kursus', path: '/admin/courses' },
-      ]},
-      { label: 'Registrasi', path: '/admin/registrasi', icon: 'users' },
-      { label: 'Absensi', path: '/admin/absensi', icon: 'attendance' },
-      { label: 'Meeting Room', path: '/admin/meeting-room', icon: 'meeting' },
-      { label: 'E-Learning', icon: 'elearning', submenu: [
-        { label: 'Forum Tugas', path: '/admin/forum-tugas' },
-        { label: 'Materi', path: '/admin/materials' },
-      ]},
+      { label: 'Data Siswa', path: '/admin/registrasi', icon: 'users' },
+      { label: 'Kelas', path: '/admin/kelas', icon: 'master' },
+      { label: 'Jadwal Mengajar', path: '/admin/jadwal-mengajar', icon: 'exam' },
+      { label: 'Materi Pembelajaran', path: '/admin/materials', icon: 'elearning' },
+      { label: 'E-Learning', path: '/admin/jadwal-ujian', icon: 'bank' },
       { label: 'Bank Soal', path: '/admin/bank-soal', icon: 'bank' },
-      { label: 'Jadwal Ujian', path: '/admin/jadwal-ujian', icon: 'exam' },
+      { label: 'Absensi', path: '/admin/absensi', icon: 'attendance' },
       { label: 'Nilai', path: '/admin/nilai', icon: 'grade' },
       { label: 'Cetak', path: '/admin/cetak', icon: 'print' },
       { label: 'Pengumuman', path: '/admin/pengumuman', icon: 'announce' },
@@ -39,31 +33,22 @@ function getMenuItems(role: Role): MenuItem[] {
   if (role === 'guru') {
     return [
       { label: 'Dashboard', path: '/guru', icon: 'dashboard' },
-      { label: 'Siswa', path: '/guru/students', icon: 'users' },
-      { label: 'Absensi', path: '/guru/absensi', icon: 'attendance' },
-      { label: 'E-Learning', icon: 'elearning', submenu: [
-        { label: 'Forum Tugas', path: '/guru/forum-tugas' },
-        { label: 'Materi', path: '/guru/materials' },
-      ]},
+      { label: 'Materi Pembelajaran', path: '/guru/materials', icon: 'elearning' },
+      { label: 'E-Learning', path: '/guru/jadwal-ujian', icon: 'bank' },
       { label: 'Bank Soal', path: '/guru/bank-soal', icon: 'bank' },
-      { label: 'Jadwal Ujian', path: '/guru/jadwal-ujian', icon: 'exam' },
+      { label: 'Absensi', path: '/guru/absensi', icon: 'attendance' },
       { label: 'Nilai', path: '/guru/nilai', icon: 'grade' },
-      { label: 'Meeting Room', path: '/guru/meeting-room', icon: 'meeting' },
+      { label: 'Forum Tugas', path: '/guru/forum-tugas', icon: 'elearning' },
       { label: 'Pengumuman', path: '/guru/pengumuman', icon: 'announce' },
     ];
   }
   // siswa
   return [
     { label: 'Dashboard', path: '/siswa', icon: 'dashboard' },
-    { label: 'Kursus', path: '/siswa/courses', icon: 'master' },
-    { label: 'E-Learning', icon: 'elearning', submenu: [
-      { label: 'Forum Tugas', path: '/siswa/forum-tugas' },
-      { label: 'Materi', path: '/siswa/materials' },
-    ]},
-    { label: 'Ujian', path: '/siswa/ujian', icon: 'exam' },
+    { label: 'Materi Pembelajaran', path: '/siswa/materials', icon: 'elearning' },
+    { label: 'E-Learning', path: '/siswa/elearning', icon: 'bank' },
     { label: 'Nilai', path: '/siswa/nilai', icon: 'grade' },
-    { label: 'Absensi', path: '/siswa/absensi', icon: 'attendance' },
-    { label: 'Pengumuman', path: '/siswa/pengumuman', icon: 'announce' },
+    { label: 'Forum Tugas', path: '/siswa/forum-tugas', icon: 'elearning' },
   ];
 }
 
@@ -74,7 +59,6 @@ function getIcon(icon: string) {
     master: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10',
     users: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
     attendance: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
-    meeting: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
     elearning: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253',
     bank: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
     exam: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z',
@@ -86,11 +70,11 @@ function getIcon(icon: string) {
   return icons[icon] || icons.dashboard;
 }
 
-
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const { user, logout } = useAuth();
@@ -125,14 +109,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
   return (
     <>
-      {/* Overlay for mobile */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={onClose} />
       )}
-
-      {/* Sidebar */}
       <aside className={`fixed top-0 left-0 h-full z-50 bg-gradient-to-b from-primary-800 to-primary-900 text-white w-64 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 lg:static lg:z-auto flex flex-col`}>
-        {/* Logo Area */}
         <div className="p-4 border-b border-primary-700">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
@@ -146,9 +126,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
           </div>
         </div>
-
-
-        {/* User Info */}
         <div className="p-4 border-b border-primary-700">
           <div className="flex items-center space-x-3">
             <div className="w-9 h-9 bg-primary-600 rounded-full flex items-center justify-center text-sm font-bold">
@@ -161,7 +138,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
         </div>
 
-        {/* Menu */}
+
         <div className="flex-1 overflow-y-auto py-4">
           <p className="px-4 text-xs font-semibold text-primary-300 uppercase tracking-wider mb-2">Menu Utama</p>
           <nav className="space-y-1 px-2">
@@ -213,9 +190,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             ))}
           </nav>
         </div>
-
-
-        {/* Logout */}
         <div className="p-4 border-t border-primary-700">
           <button onClick={handleLogout}
             className="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm text-primary-100 hover:bg-accent-600 hover:text-white transition-colors">

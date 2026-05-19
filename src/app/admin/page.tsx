@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import DashboardLayout from '@/components/DashboardLayout';
-import { getUsers, getCourses, getBankSoal, getExamResults, getAnnouncements, getActivityLogs } from '@/lib/data';
+import { getUsers, getCourses, getBankSoal, getExamResults, getAnnouncements, getActivityLogs, getKelas } from '@/lib/data';
 
 export default function AdminDashboard() {
   const { user, isLoading } = useAuth();
@@ -19,7 +19,7 @@ export default function AdminDashboard() {
     const users = getUsers();
     setStats({
       siswa: users.filter(u => u.role === 'siswa').length,
-      kelas: getCourses().length,
+      kelas: getKelas().length,
       soal: getBankSoal().length,
       nilai: getExamResults().length,
     });
@@ -32,35 +32,12 @@ export default function AdminDashboard() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Welcome */}
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-xl p-6 text-white">
           <h2 className="text-2xl font-bold">Selamat Datang, {user.name}!</h2>
           <p className="text-primary-100 mt-1">Panel Administrator - SD Kartika X-2 LMS</p>
         </div>
 
 
-        {/* Statistik Sekolah - Bar Chart Style */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Statistik Sekolah</h3>
-          <div className="grid grid-cols-4 gap-4">
-            {[
-              { label: 'Siswa', value: stats.siswa, max: 10, color: 'bg-primary-500' },
-              { label: 'Kelas', value: stats.kelas, max: 10, color: 'bg-blue-500' },
-              { label: 'Soal', value: stats.soal, max: 10, color: 'bg-yellow-500' },
-              { label: 'Nilai', value: stats.nilai, max: 10, color: 'bg-accent-500' },
-            ].map((item) => (
-              <div key={item.label} className="flex flex-col items-center">
-                <div className="h-32 w-12 bg-gray-100 rounded-t-lg relative flex items-end justify-center">
-                  <div className={`w-full ${item.color} rounded-t-lg transition-all`} style={{ height: `${Math.min((item.value / item.max) * 100, 100)}%` }}></div>
-                </div>
-                <p className="text-xs mt-2 text-gray-600 font-medium">{item.label}</p>
-                <p className="text-lg font-bold text-gray-800">{item.value}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Stat Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-primary-50 border border-primary-200 rounded-xl p-5">
             <div className="flex items-center justify-between">
@@ -69,9 +46,7 @@ export default function AdminDashboard() {
                 <p className="text-3xl font-bold text-primary-800">{stats.siswa}</p>
               </div>
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               </div>
             </div>
           </div>
@@ -82,9 +57,7 @@ export default function AdminDashboard() {
                 <p className="text-3xl font-bold text-blue-800">{stats.kelas}</p>
               </div>
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
               </div>
             </div>
           </div>
@@ -95,9 +68,7 @@ export default function AdminDashboard() {
                 <p className="text-3xl font-bold text-yellow-800">{stats.soal}</p>
               </div>
               <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
               </div>
             </div>
           </div>
@@ -108,24 +79,15 @@ export default function AdminDashboard() {
                 <p className="text-3xl font-bold text-accent-800">{stats.nilai}</p>
               </div>
               <div className="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
-                <svg className="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
+                <svg className="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
               </div>
             </div>
           </div>
         </div>
 
-
-        {/* Pengumuman & Log Aktifitas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center space-x-2">
-              <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-              </svg>
-              <span>Pengumuman</span>
-            </h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Pengumuman</h3>
             <div className="space-y-3">
               {announcements.map((a, i) => (
                 <div key={i} className="p-3 bg-gray-50 rounded-lg border-l-4 border-primary-500">
@@ -136,14 +98,8 @@ export default function AdminDashboard() {
               {announcements.length === 0 && <p className="text-sm text-gray-500">Belum ada pengumuman</p>}
             </div>
           </div>
-
           <div className="bg-white rounded-xl p-6 shadow-sm border">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center space-x-2">
-              <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span>Log Aktifitas</span>
-            </h3>
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Log Aktifitas</h3>
             <div className="space-y-3">
               {logs.map((l, i) => (
                 <div key={i} className="flex items-start space-x-3 p-2">

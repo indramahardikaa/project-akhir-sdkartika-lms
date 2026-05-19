@@ -1,13 +1,40 @@
-import { User, Course, Material, Enrollment, Announcement, Attendance, ForumTask, TaskSubmission, BankSoal, Exam, ExamResult, MeetingRoom, ActivityLog } from '@/types';
+import { User, Course, Material, Enrollment, Announcement, Attendance, ForumTask, TaskSubmission, BankSoal, Exam, ExamResult, ActivityLog, Kelas, JadwalPelajaran } from '@/types';
 
 // Default seed data
 const defaultUsers: User[] = [
   { id: '1', name: 'Administrator', email: 'admin@lms.com', password: 'admin123', role: 'admin', createdAt: '2024-01-01T00:00:00Z' },
   { id: '2', name: 'Budi Santoso', email: 'budi@lms.com', password: 'guru123', role: 'guru', createdAt: '2024-01-02T00:00:00Z' },
   { id: '3', name: 'Siti Rahayu', email: 'siti@lms.com', password: 'guru123', role: 'guru', createdAt: '2024-01-03T00:00:00Z' },
-  { id: '4', name: 'Andi Pratama', email: 'andi@lms.com', password: 'siswa123', role: 'siswa', createdAt: '2024-01-04T00:00:00Z' },
-  { id: '5', name: 'Dewi Lestari', email: 'dewi@lms.com', password: 'siswa123', role: 'siswa', createdAt: '2024-01-05T00:00:00Z' },
-  { id: '6', name: 'Rizki Ramadhan', email: 'rizki@lms.com', password: 'siswa123', role: 'siswa', createdAt: '2024-01-06T00:00:00Z' },
+  { id: '4', name: 'Andi Pratama', email: 'andi@lms.com', password: 'siswa123', role: 'siswa', kelas: '1A', nisn: '0012345001', nis: '2024001', createdAt: '2024-01-04T00:00:00Z' },
+  { id: '5', name: 'Dewi Lestari', email: 'dewi@lms.com', password: 'siswa123', role: 'siswa', kelas: '1A', nisn: '0012345002', nis: '2024002', createdAt: '2024-01-05T00:00:00Z' },
+  { id: '6', name: 'Rizki Ramadhan', email: 'rizki@lms.com', password: 'siswa123', role: 'siswa', kelas: '1B', nisn: '0012345003', nis: '2024003', createdAt: '2024-01-06T00:00:00Z' },
+
+  { id: '7', name: 'Putri Amelia', email: 'putri@lms.com', password: 'siswa123', role: 'siswa', kelas: '2A', nisn: '0012345004', nis: '2024004', createdAt: '2024-01-07T00:00:00Z' },
+  { id: '8', name: 'Fajar Nugroho', email: 'fajar@lms.com', password: 'siswa123', role: 'siswa', kelas: '2A', nisn: '0012345005', nis: '2024005', createdAt: '2024-01-08T00:00:00Z' },
+  { id: '9', name: 'Sari Wulandari', email: 'sari@lms.com', password: 'siswa123', role: 'siswa', kelas: '3A', nisn: '0012345006', nis: '2024006', createdAt: '2024-01-09T00:00:00Z' },
+  { id: '10', name: 'Dimas Aditya', email: 'dimas@lms.com', password: 'siswa123', role: 'siswa', kelas: '2B', nisn: '0012345007', nis: '2024007', createdAt: '2024-01-10T00:00:00Z' },
+];
+
+const defaultKelas: Kelas[] = [
+  { id: 'k1', name: '1A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k2', name: '1B', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k3', name: '2A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k4', name: '2B', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k5', name: '3A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k6', name: '3B', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k7', name: '4A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k8', name: '4B', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k9', name: '5A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k10', name: '5B', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k11', name: '6A', createdAt: '2024-01-01T00:00:00Z' },
+  { id: 'k12', name: '6B', createdAt: '2024-01-01T00:00:00Z' },
+];
+
+
+const defaultJadwalPelajaran: JadwalPelajaran[] = [
+  { id: 'j1', kelasId: 'k1', courseId: '1', guruId: '2', hari: 'Senin', jamMulai: '08:00', jamSelesai: '09:30' },
+  { id: 'j2', kelasId: 'k1', courseId: '2', guruId: '3', hari: 'Selasa', jamMulai: '08:00', jamSelesai: '09:30' },
+  { id: 'j3', kelasId: 'k3', courseId: '3', guruId: '2', hari: 'Rabu', jamMulai: '10:00', jamSelesai: '11:30' },
 ];
 
 const defaultCourses: Course[] = [
@@ -16,13 +43,13 @@ const defaultCourses: Course[] = [
   { id: '3', title: 'IPA Terpadu', description: 'Ilmu Pengetahuan Alam mencakup biologi, fisika, dan kimia dasar', guruId: '2', guruName: 'Budi Santoso', category: 'Sains', createdAt: '2024-01-12T00:00:00Z' },
 ];
 
-
 const defaultMaterials: Material[] = [
   { id: '1', courseId: '1', title: 'Pengenalan Bilangan', content: 'Bilangan adalah konsep dasar dalam matematika.', type: 'text', createdAt: '2024-01-15T00:00:00Z' },
   { id: '2', courseId: '1', title: 'Operasi Hitung Dasar', content: 'Operasi hitung dasar meliputi penjumlahan, pengurangan, perkalian, dan pembagian.', type: 'text', createdAt: '2024-01-16T00:00:00Z' },
   { id: '3', courseId: '2', title: 'Tata Bahasa Indonesia', content: 'Tata bahasa Indonesia meliputi fonologi, morfologi, dan sintaksis.', type: 'text', createdAt: '2024-01-17T00:00:00Z' },
   { id: '4', courseId: '3', title: 'Pengenalan Sistem Tata Surya', content: 'Tata surya kita terdiri dari Matahari sebagai pusat dan delapan planet.', type: 'text', createdAt: '2024-01-18T00:00:00Z' },
 ];
+
 
 const defaultEnrollments: Enrollment[] = [
   { id: '1', siswaId: '4', courseId: '1', enrolledAt: '2024-02-01T00:00:00Z', progress: 50 },
@@ -31,6 +58,10 @@ const defaultEnrollments: Enrollment[] = [
   { id: '4', siswaId: '5', courseId: '3', enrolledAt: '2024-02-04T00:00:00Z', progress: 20 },
   { id: '5', siswaId: '6', courseId: '1', enrolledAt: '2024-02-05T00:00:00Z', progress: 60 },
   { id: '6', siswaId: '6', courseId: '2', enrolledAt: '2024-02-06T00:00:00Z', progress: 40 },
+  { id: '7', siswaId: '7', courseId: '1', enrolledAt: '2024-02-07T00:00:00Z', progress: 45 },
+  { id: '8', siswaId: '8', courseId: '3', enrolledAt: '2024-02-08T00:00:00Z', progress: 55 },
+  { id: '9', siswaId: '9', courseId: '2', enrolledAt: '2024-02-09T00:00:00Z', progress: 35 },
+  { id: '10', siswaId: '10', courseId: '1', enrolledAt: '2024-02-10T00:00:00Z', progress: 25 },
 ];
 
 const defaultAnnouncements: Announcement[] = [
@@ -41,12 +72,12 @@ const defaultAnnouncements: Announcement[] = [
 
 
 const defaultAttendance: Attendance[] = [
-  { id: '1', courseId: '1', siswaId: '4', date: '2024-02-05', status: 'hadir' },
-  { id: '2', courseId: '1', siswaId: '5', date: '2024-02-05', status: 'hadir' },
-  { id: '3', courseId: '1', siswaId: '6', date: '2024-02-05', status: 'izin', note: 'Acara keluarga' },
-  { id: '4', courseId: '1', siswaId: '4', date: '2024-02-06', status: 'hadir' },
-  { id: '5', courseId: '1', siswaId: '5', date: '2024-02-06', status: 'sakit', note: 'Demam' },
-  { id: '6', courseId: '2', siswaId: '4', date: '2024-02-05', status: 'hadir' },
+  { id: '1', courseId: '1', siswaId: '4', kelasId: 'k1', day: 5, month: 2, year: 2024, status: 'hadir' },
+  { id: '2', courseId: '1', siswaId: '5', kelasId: 'k1', day: 5, month: 2, year: 2024, status: 'hadir' },
+  { id: '3', courseId: '1', siswaId: '6', kelasId: 'k2', day: 5, month: 2, year: 2024, status: 'izin', note: 'Acara keluarga' },
+  { id: '4', courseId: '1', siswaId: '4', kelasId: 'k1', day: 6, month: 2, year: 2024, status: 'hadir' },
+  { id: '5', courseId: '1', siswaId: '5', kelasId: 'k1', day: 6, month: 2, year: 2024, status: 'sakit', note: 'Demam' },
+  { id: '6', courseId: '2', siswaId: '4', kelasId: 'k1', day: 5, month: 2, year: 2024, status: 'hadir' },
 ];
 
 const defaultForumTasks: ForumTask[] = [
@@ -64,15 +95,15 @@ const defaultTaskSubmissions: TaskSubmission[] = [
 
 const defaultBankSoal: BankSoal[] = [
   { id: '1', courseId: '1', question: 'Berapakah hasil dari 8 x 7?', options: ['54', '56', '58', '62'], correctAnswer: 1, category: 'Perkalian', difficulty: 'mudah', createdAt: '2024-02-01T00:00:00Z' },
-  { id: '2', courseId: '1', question: 'Hasil dari 125 ÷ 5 adalah?', options: ['20', '25', '30', '35'], correctAnswer: 1, category: 'Pembagian', difficulty: 'mudah', createdAt: '2024-02-01T00:00:00Z' },
-  { id: '3', courseId: '1', question: 'Luas persegi dengan sisi 9 cm adalah?', options: ['72 cm²', '81 cm²', '90 cm²', '99 cm²'], correctAnswer: 1, category: 'Geometri', difficulty: 'sedang', createdAt: '2024-02-02T00:00:00Z' },
+  { id: '2', courseId: '1', question: 'Hasil dari 125 / 5 adalah?', options: ['20', '25', '30', '35'], correctAnswer: 1, category: 'Pembagian', difficulty: 'mudah', createdAt: '2024-02-01T00:00:00Z' },
+  { id: '3', courseId: '1', question: 'Luas persegi dengan sisi 9 cm adalah?', options: ['72 cm2', '81 cm2', '90 cm2', '99 cm2'], correctAnswer: 1, category: 'Geometri', difficulty: 'sedang', createdAt: '2024-02-02T00:00:00Z' },
   { id: '4', courseId: '2', question: 'Kata baku dari "analisa" adalah?', options: ['Analisis', 'Analisa', 'Analis', 'Analise'], correctAnswer: 0, category: 'Tata Bahasa', difficulty: 'mudah', createdAt: '2024-02-03T00:00:00Z' },
   { id: '5', courseId: '3', question: 'Planet terbesar di tata surya adalah?', options: ['Saturnus', 'Jupiter', 'Uranus', 'Neptunus'], correctAnswer: 1, category: 'Astronomi', difficulty: 'mudah', createdAt: '2024-02-04T00:00:00Z' },
 ];
 
 const defaultExams: Exam[] = [
   { id: '1', courseId: '1', guruId: '2', title: 'UH 1 - Matematika Dasar', type: 'UH', duration: 60, questions: ['1', '2', '3'], startTime: '2024-03-01T08:00:00Z', endTime: '2024-03-01T09:00:00Z', token: 'MTK001', createdAt: '2024-02-20T00:00:00Z' },
-  { id: '2', courseId: '2', guruId: '3', title: 'UTS - Bahasa Indonesia', type: 'UTS', duration: 90, questions: ['4'], startTime: '2024-03-15T08:00:00Z', endTime: '2024-03-15T09:30:00Z', token: 'BIN001', createdAt: '2024-03-01T00:00:00Z' },
+  { id: '2', courseId: '2', guruId: '3', title: 'UH 1 - Bahasa Indonesia', type: 'UH', duration: 90, questions: ['4'], startTime: '2024-03-15T08:00:00Z', endTime: '2024-03-15T09:30:00Z', token: 'BIN001', createdAt: '2024-03-01T00:00:00Z' },
 ];
 
 const defaultExamResults: ExamResult[] = [
@@ -82,16 +113,11 @@ const defaultExamResults: ExamResult[] = [
 ];
 
 
-const defaultMeetingRooms: MeetingRoom[] = [
-  { id: '1', title: 'Kelas Matematika Online', description: 'Pembahasan soal UH 1', hostId: '2', hostName: 'Budi Santoso', meetingUrl: 'https://meet.google.com/abc-defg-hij', scheduledAt: '2024-03-05T09:00:00Z', createdAt: '2024-03-01T00:00:00Z' },
-  { id: '2', title: 'Konsultasi Bahasa Indonesia', description: 'Diskusi materi tata bahasa', hostId: '3', hostName: 'Siti Rahayu', meetingUrl: 'https://meet.google.com/klm-nopq-rst', scheduledAt: '2024-03-06T10:00:00Z', createdAt: '2024-03-02T00:00:00Z' },
-];
-
 const defaultActivityLogs: ActivityLog[] = [
   { id: '1', userId: '1', userName: 'Administrator', action: 'Menambahkan pengumuman baru', createdAt: '2024-02-20T08:00:00Z' },
   { id: '2', userId: '2', userName: 'Budi Santoso', action: 'Membuat tugas baru: Latihan Soal Perkalian', createdAt: '2024-02-10T08:00:00Z' },
   { id: '3', userId: '4', userName: 'Andi Pratama', action: 'Mengumpulkan tugas: Latihan Soal Perkalian', createdAt: '2024-02-28T10:00:00Z' },
-  { id: '4', userId: '3', userName: 'Siti Rahayu', action: 'Membuat jadwal ujian UTS Bahasa Indonesia', createdAt: '2024-03-01T00:00:00Z' },
+  { id: '4', userId: '3', userName: 'Siti Rahayu', action: 'Membuat jadwal ujian UH Bahasa Indonesia', createdAt: '2024-03-01T00:00:00Z' },
   { id: '5', userId: '5', userName: 'Dewi Lestari', action: 'Mengerjakan ujian UH 1 Matematika', createdAt: '2024-03-01T08:50:00Z' },
 ];
 
@@ -136,6 +162,53 @@ export function deleteUser(id: string): boolean {
   const filtered = users.filter((u) => u.id !== id);
   if (filtered.length === users.length) return false;
   saveToStorage('lms_users', filtered);
+  return true;
+}
+
+
+// Kelas CRUD
+export function getKelas(): Kelas[] { return getFromStorage('lms_kelas', defaultKelas); }
+export function getKelasById(id: string): Kelas | undefined { return getKelas().find((k) => k.id === id); }
+export function createKelas(kelas: Omit<Kelas, 'id' | 'createdAt'>): Kelas {
+  const items = getKelas();
+  const newItem: Kelas = { ...kelas, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  items.push(newItem);
+  saveToStorage('lms_kelas', items);
+  return newItem;
+}
+export function updateKelas(id: string, data: Partial<Kelas>): Kelas | undefined {
+  const items = getKelas();
+  const index = items.findIndex((k) => k.id === id);
+  if (index === -1) return undefined;
+  items[index] = { ...items[index], ...data };
+  saveToStorage('lms_kelas', items);
+  return items[index];
+}
+export function deleteKelas(id: string): boolean {
+  const items = getKelas();
+  const filtered = items.filter((k) => k.id !== id);
+  if (filtered.length === items.length) return false;
+  saveToStorage('lms_kelas', filtered);
+  return true;
+}
+
+
+// JadwalPelajaran CRUD
+export function getJadwalPelajaran(): JadwalPelajaran[] { return getFromStorage('lms_jadwal', defaultJadwalPelajaran); }
+export function getJadwalByKelas(kelasId: string): JadwalPelajaran[] { return getJadwalPelajaran().filter((j) => j.kelasId === kelasId); }
+export function getJadwalByGuru(guruId: string): JadwalPelajaran[] { return getJadwalPelajaran().filter((j) => j.guruId === guruId); }
+export function createJadwalPelajaran(jadwal: Omit<JadwalPelajaran, 'id'>): JadwalPelajaran {
+  const items = getJadwalPelajaran();
+  const newItem: JadwalPelajaran = { ...jadwal, id: Date.now().toString() };
+  items.push(newItem);
+  saveToStorage('lms_jadwal', items);
+  return newItem;
+}
+export function deleteJadwalPelajaran(id: string): boolean {
+  const items = getJadwalPelajaran();
+  const filtered = items.filter((j) => j.id !== id);
+  if (filtered.length === items.length) return false;
+  saveToStorage('lms_jadwal', filtered);
   return true;
 }
 
@@ -242,6 +315,12 @@ export function deleteAnnouncement(id: string): boolean {
 export function getAttendance(): Attendance[] { return getFromStorage('lms_attendance', defaultAttendance); }
 export function getAttendanceByCourse(courseId: string): Attendance[] { return getAttendance().filter((a) => a.courseId === courseId); }
 export function getAttendanceBySiswa(siswaId: string): Attendance[] { return getAttendance().filter((a) => a.siswaId === siswaId); }
+export function getAttendanceByMonth(courseId: string, kelasId: string, month: number, year: number): Attendance[] {
+  return getAttendance().filter((a) => a.courseId === courseId && a.kelasId === kelasId && a.month === month && a.year === year);
+}
+export function getAttendanceByKelasMonth(kelasId: string, month: number, year: number): Attendance[] {
+  return getAttendance().filter((a) => a.kelasId === kelasId && a.month === month && a.year === year);
+}
 export function createAttendance(a: Omit<Attendance, 'id'>): Attendance {
   const items = getAttendance();
   const newItem: Attendance = { ...a, id: Date.now().toString() };
@@ -257,6 +336,7 @@ export function updateAttendance(id: string, data: Partial<Attendance>): Attenda
   saveToStorage('lms_attendance', items);
   return items[index];
 }
+
 
 // ForumTask CRUD
 export function getForumTasks(): ForumTask[] { return getFromStorage('lms_forum_tasks', defaultForumTasks); }
@@ -277,7 +357,6 @@ export function deleteForumTask(id: string): boolean {
   return true;
 }
 
-
 // TaskSubmission CRUD
 export function getTaskSubmissions(): TaskSubmission[] { return getFromStorage('lms_task_submissions', defaultTaskSubmissions); }
 export function getSubmissionsByTask(taskId: string): TaskSubmission[] { return getTaskSubmissions().filter((s) => s.taskId === taskId); }
@@ -297,6 +376,7 @@ export function gradeSubmission(id: string, grade: number): TaskSubmission | und
   saveToStorage('lms_task_submissions', items);
   return items[index];
 }
+
 
 // BankSoal CRUD
 export function getBankSoal(): BankSoal[] { return getFromStorage('lms_bank_soal', defaultBankSoal); }
@@ -324,7 +404,6 @@ export function deleteBankSoal(id: string): boolean {
   return true;
 }
 
-
 // Exam CRUD
 export function getExams(): Exam[] { return getFromStorage('lms_exams', defaultExams); }
 export function getExamById(id: string): Exam | undefined { return getExams().find((e) => e.id === id); }
@@ -345,6 +424,7 @@ export function deleteExam(id: string): boolean {
   return true;
 }
 
+
 // ExamResult CRUD
 export function getExamResults(): ExamResult[] { return getFromStorage('lms_exam_results', defaultExamResults); }
 export function getExamResultsByExam(examId: string): ExamResult[] { return getExamResults().filter((r) => r.examId === examId); }
@@ -355,23 +435,6 @@ export function createExamResult(r: Omit<ExamResult, 'id' | 'submittedAt'>): Exa
   items.push(newItem);
   saveToStorage('lms_exam_results', items);
   return newItem;
-}
-
-// MeetingRoom CRUD
-export function getMeetingRooms(): MeetingRoom[] { return getFromStorage('lms_meeting_rooms', defaultMeetingRooms); }
-export function createMeetingRoom(m: Omit<MeetingRoom, 'id' | 'createdAt'>): MeetingRoom {
-  const items = getMeetingRooms();
-  const newItem: MeetingRoom = { ...m, id: Date.now().toString(), createdAt: new Date().toISOString() };
-  items.push(newItem);
-  saveToStorage('lms_meeting_rooms', items);
-  return newItem;
-}
-export function deleteMeetingRoom(id: string): boolean {
-  const items = getMeetingRooms();
-  const filtered = items.filter((i) => i.id !== id);
-  if (filtered.length === items.length) return false;
-  saveToStorage('lms_meeting_rooms', filtered);
-  return true;
 }
 
 // ActivityLog CRUD

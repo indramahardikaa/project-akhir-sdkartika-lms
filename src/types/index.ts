@@ -6,6 +6,9 @@ export interface User {
   email: string;
   password: string;
   role: Role;
+  kelas?: string;
+  nisn?: string;
+  nis?: string;
   createdAt: string;
 }
 
@@ -51,7 +54,10 @@ export interface Attendance {
   id: string;
   courseId: string;
   siswaId: string;
-  date: string;
+  kelasId: string;
+  day: number;
+  month: number;
+  year: number;
   status: 'hadir' | 'izin' | 'sakit' | 'alpha';
   note?: string;
 }
@@ -111,15 +117,21 @@ export interface ExamResult {
   submittedAt: string;
 }
 
-export interface MeetingRoom {
+export interface Kelas {
   id: string;
-  title: string;
-  description: string;
-  hostId: string;
-  hostName: string;
-  meetingUrl: string;
-  scheduledAt: string;
+  name: string;
+  waliKelasId?: string;
   createdAt: string;
+}
+
+export interface JadwalPelajaran {
+  id: string;
+  kelasId: string;
+  courseId: string;
+  guruId: string;
+  hari: 'Senin' | 'Selasa' | 'Rabu' | 'Kamis' | 'Jumat' | 'Sabtu';
+  jamMulai: string;
+  jamSelesai: string;
 }
 
 export interface ActivityLog {
