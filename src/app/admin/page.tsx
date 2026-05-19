@@ -3,107 +3,161 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
-import { getUsers, getCourses, getMaterials, getEnrollments } from '@/lib/data';
+import DashboardLayout from '@/components/DashboardLayout';
+import { getUsers, getCourses, getBankSoal, getExamResults, getAnnouncements, getActivityLogs } from '@/lib/data';
 
 export default function AdminDashboard() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
-  const [stats, setStats] = useState({ users: 0, gurus: 0, siswa: 0, courses: 0, materials: 0, enrollments: 0 });
+  const [stats, setStats] = useState({ siswa: 0, kelas: 0, soal: 0, nilai: 0 });
+  const [announcements, setAnnouncements] = useState<{ title: string; createdAt: string }[]>([]);
+  const [logs, setLogs] = useState<{ userName: string; action: string; createdAt: string }[]>([]);
 
   useEffect(() => {
     if (isLoading) return;
     if (!user || user.role !== 'admin') { router.push('/login'); return; }
-
     const users = getUsers();
     setStats({
-      users: users.length,
-      gurus: users.filter((u) => u.role === 'guru').length,
-      siswa: users.filter((u) => u.role === 'siswa').length,
-      courses: getCourses().length,
-      materials: getMaterials().length,
-      enrollments: getEnrollments().length,
+      siswa: users.filter(u => u.role === 'siswa').length,
+      kelas: getCourses().length,
+      soal: getBankSoal().length,
+      nilai: getExamResults().length,
     });
+    setAnnouncements(getAnnouncements().slice(-3).reverse());
+    setLogs(getActivityLogs().slice(-5).reverse());
   }, [user, isLoading, router]);
 
-  if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center bg-gray-50"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div></div>;
-  }
-
-  const statCards = [
-    { label: 'Total Pengguna', value: stats.users, icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', color: 'primary', bg: 'bg-primary-50', text: 'text-primary-700', iconBg: 'bg-primary-100' },
-    { label: 'Guru Aktif', value: stats.gurus, icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z', color: 'blue', bg: 'bg-blue-50', text: 'text-blue-700', iconBg: 'bg-blue-100' },
-    { label: 'Siswa Terdaftar', value: stats.siswa, icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253', color: 'emerald', bg: 'bg-emerald-50', text: 'text-emerald-700', iconBg: 'bg-emerald-100' },
-    { label: 'Total Kursus', value: stats.courses, icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', color: 'purple', bg: 'bg-purple-50', text: 'text-purple-700', iconBg: 'bg-purple-100' },
-    { label: 'Materi Tersedia', value: stats.materials, icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', color: 'amber', bg: 'bg-amber-50', text: 'text-amber-700', iconBg: 'bg-amber-100' },
-    { label: 'Pendaftaran Kursus', value: stats.enrollments, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', color: 'rose', bg: 'bg-rose-50', text: 'text-rose-700', iconBg: 'bg-rose-100' },
-  ];
+  if (isLoading || !user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 rounded-2xl p-8 mb-8 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute bottom-0 left-1/2 w-48 h-48 bg-accent-500/20 rounded-full translate-y-1/2"></div>
-          <div className="relative z-10">
-            <h1 className="text-3xl font-bold mb-2">Selamat Datang, {user.name}!</h1>
-            <p className="text-primary-100 text-lg">Panel Administrator - Kelola seluruh sistem LMS dari sini.</p>
-          </div>
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-400 via-white to-primary-300"></div>
+    <DashboardLayout>
+      <div className="space-y-6">
+        {/* Welcome */}
+        <div className="bg-gradient-to-r from-primary-600 to-primary-800 rounded-xl p-6 text-white">
+          <h2 className="text-2xl font-bold">Selamat Datang, {user.name}!</h2>
+          <p className="text-primary-100 mt-1">Panel Administrator - SD Kartika X-2 LMS</p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-          {statCards.map((card, index) => (
-            <div key={index} className={`${card.bg} rounded-xl p-6 border border-gray-100 hover:shadow-md transition-all duration-300 animate-fade-in`} style={{ animationDelay: `${index * 100}ms` }}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-500">{card.label}</p>
-                  <p className={`text-3xl font-bold ${card.text} mt-1`}>{card.value}</p>
+
+        {/* Statistik Sekolah - Bar Chart Style */}
+        <div className="bg-white rounded-xl p-6 shadow-sm border">
+          <h3 className="text-lg font-bold text-gray-800 mb-4">Statistik Sekolah</h3>
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              { label: 'Siswa', value: stats.siswa, max: 10, color: 'bg-primary-500' },
+              { label: 'Kelas', value: stats.kelas, max: 10, color: 'bg-blue-500' },
+              { label: 'Soal', value: stats.soal, max: 10, color: 'bg-yellow-500' },
+              { label: 'Nilai', value: stats.nilai, max: 10, color: 'bg-accent-500' },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center">
+                <div className="h-32 w-12 bg-gray-100 rounded-t-lg relative flex items-end justify-center">
+                  <div className={`w-full ${item.color} rounded-t-lg transition-all`} style={{ height: `${Math.min((item.value / item.max) * 100, 100)}%` }}></div>
                 </div>
-                <div className={`${card.iconBg} p-3 rounded-xl`}>
-                  <svg className={`w-7 h-7 ${card.text}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={card.icon} />
-                  </svg>
-                </div>
+                <p className="text-xs mt-2 text-gray-600 font-medium">{item.label}</p>
+                <p className="text-lg font-bold text-gray-800">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stat Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-primary-50 border border-primary-200 rounded-xl p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-primary-600 font-medium">Jumlah Siswa</p>
+                <p className="text-3xl font-bold text-primary-800">{stats.siswa}</p>
+              </div>
+              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-5 flex items-center space-x-2">
-            <svg className="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            <span>Aksi Cepat</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button onClick={() => router.push('/admin/users')} className="group p-5 bg-gradient-to-br from-primary-50 to-green-50 hover:from-primary-100 hover:to-green-100 rounded-xl text-left transition-all duration-300 border border-primary-100 hover:shadow-md">
-              <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-primary-200 transition-colors">
-                <svg className="w-5 h-5 text-primary-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          </div>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-blue-600 font-medium">Jumlah Kelas</p>
+                <p className="text-3xl font-bold text-blue-800">{stats.kelas}</p>
               </div>
-              <h3 className="font-semibold text-gray-800">Kelola Pengguna</h3>
-              <p className="text-sm text-gray-500 mt-1">Tambah, edit, hapus pengguna</p>
-            </button>
-            <button onClick={() => router.push('/admin/courses')} className="group p-5 bg-gradient-to-br from-purple-50 to-indigo-50 hover:from-purple-100 hover:to-indigo-100 rounded-xl text-left transition-all duration-300 border border-purple-100 hover:shadow-md">
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-purple-200 transition-colors">
-                <svg className="w-5 h-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
               </div>
-              <h3 className="font-semibold text-gray-800">Kelola Kursus</h3>
-              <p className="text-sm text-gray-500 mt-1">Atur kursus dan kategori</p>
-            </button>
-            <button onClick={() => router.push('/admin/materials')} className="group p-5 bg-gradient-to-br from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 rounded-xl text-left transition-all duration-300 border border-amber-100 hover:shadow-md">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-amber-200 transition-colors">
-                <svg className="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            </div>
+          </div>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-yellow-600 font-medium">Bank Soal</p>
+                <p className="text-3xl font-bold text-yellow-800">{stats.soal}</p>
               </div>
-              <h3 className="font-semibold text-gray-800">Kelola Materi</h3>
-              <p className="text-sm text-gray-500 mt-1">Atur materi pembelajaran</p>
-            </button>
+              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div className="bg-accent-50 border border-accent-200 rounded-xl p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-accent-600 font-medium">Hasil Ujian</p>
+                <p className="text-3xl font-bold text-accent-800">{stats.nilai}</p>
+              </div>
+              <div className="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
-      </main>
-    </div>
+
+
+        {/* Pengumuman & Log Aktifitas */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl p-6 shadow-sm border">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center space-x-2">
+              <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+              </svg>
+              <span>Pengumuman</span>
+            </h3>
+            <div className="space-y-3">
+              {announcements.map((a, i) => (
+                <div key={i} className="p-3 bg-gray-50 rounded-lg border-l-4 border-primary-500">
+                  <p className="text-sm font-medium text-gray-800">{a.title}</p>
+                  <p className="text-xs text-gray-500 mt-1">{new Date(a.createdAt).toLocaleDateString('id-ID')}</p>
+                </div>
+              ))}
+              {announcements.length === 0 && <p className="text-sm text-gray-500">Belum ada pengumuman</p>}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-sm border">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center space-x-2">
+              <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Log Aktifitas</span>
+            </h3>
+            <div className="space-y-3">
+              {logs.map((l, i) => (
+                <div key={i} className="flex items-start space-x-3 p-2">
+                  <div className="w-2 h-2 bg-primary-500 rounded-full mt-2"></div>
+                  <div>
+                    <p className="text-sm text-gray-800"><span className="font-medium">{l.userName}</span> - {l.action}</p>
+                    <p className="text-xs text-gray-500">{new Date(l.createdAt).toLocaleDateString('id-ID')}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardLayout>
   );
 }
