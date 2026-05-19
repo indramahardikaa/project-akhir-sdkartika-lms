@@ -3,18 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
-import { getMaterials, createMaterial, updateMaterial, deleteMaterial, getCourses } from '@/lib/data';
-import { Material, Course } from '@/types';
+import DashboardLayout from '@/components/DashboardLayout';
+import { getMaterials, getCourses, createMaterial, deleteMaterial } from '@/lib/data';
+import { Material } from '@/types';
 
 export default function AdminMaterialsPage() {
   const { user, isLoading } = useAuth();
   const router = useRouter();
-  const [materials, setMaterials] = useState<Material[]>([]);
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [showModal, setShowModal] = useState(false);
-  const [editingMaterial, setEditingMaterial] = useState<Material | null>(null);
-  const [formData, setFormData] = useState({ courseId: '', title: '', content: '', type: 'text' as 'text' | 'video' | 'document', url: '' });
+  const [materials, setMaterials] = useState<(Material & { courseName: string })[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({ title: '', content: '', courseId: '', type: 'text' as const });
+  const [courses, setCoursesList] = useState<{ id: string; title: string }[]>([]);
 
   useEffect(() => {
     if (isLoading) return;
@@ -23,126 +22,68 @@ export default function AdminMaterialsPage() {
   }, [user, isLoading, router]);
 
   const loadData = () => {
-    setMaterials(getMaterials());
-    setCourses(getCourses());
+    const c = getCourses();
+    setCoursesList(c.map(x => ({ id: x.id, title: x.title })));
+    setMaterials(getMaterials().map(m => ({ ...m, courseName: c.find(x => x.id === m.courseId)?.title || '-' })));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingMaterial) { updateMaterial(editingMaterial.id, formData); }
-    else { createMaterial(formData); }
-    setShowModal(false);
-    setEditingMaterial(null);
-    setFormData({ courseId: '', title: '', content: '', type: 'text', url: '' });
+  const handleCreate = () => {
+    if (!form.title || !form.courseId) return;
+    createMaterial({ title: form.title, content: form.content, courseId: form.courseId, type: form.type });
     loadData();
-  };
-
-  const handleEdit = (m: Material) => {
-    setEditingMaterial(m);
-    setFormData({ courseId: m.courseId, title: m.title, content: m.content, type: m.type, url: m.url || '' });
-    setShowModal(true);
+    setForm({ title: '', content: '', courseId: '', type: 'text' });
+    setShowForm(false);
   };
 
   const handleDelete = (id: string) => {
     if (confirm('Hapus materi ini?')) { deleteMaterial(id); loadData(); }
   };
 
-  const getCourseName = (courseId: string) => courses.find(c => c.id === courseId)?.title || 'Unknown';
-
-  if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
-  }
+  if (isLoading || !user) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Kelola Materi</h1>
-            <p className="text-gray-600 mt-1">Atur semua materi pembelajaran</p>
-          </div>
-          <button
-            onClick={() => { setEditingMaterial(null); setFormData({ courseId: '', title: '', content: '', type: 'text', url: '' }); setShowModal(true); }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            + Tambah Materi
-          </button>
+    <DashboardLayout>
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-gray-800">Materi Pembelajaran</h2>
+          <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">+ Tambah</button>
         </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        {showForm && (
+          <div className="bg-white rounded-xl p-6 shadow-sm border">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input placeholder="Judul" value={form.title} onChange={e => setForm({...form, title: e.target.value})} className="border rounded-lg px-3 py-2 text-sm" />
+              <select value={form.courseId} onChange={e => setForm({...form, courseId: e.target.value})} className="border rounded-lg px-3 py-2 text-sm">
+                <option value="">Pilih Kursus</option>
+                {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
+              </select>
+              <textarea placeholder="Konten" value={form.content} onChange={e => setForm({...form, content: e.target.value})} className="border rounded-lg px-3 py-2 text-sm col-span-2 h-20" />
+            </div>
+            <button onClick={handleCreate} className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg text-sm">Simpan</button>
+          </div>
+        )}
+        <div className="bg-white rounded-xl shadow-sm border overflow-hidden">
+          <table className="w-full text-sm">
+            <thead className="bg-primary-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Judul</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kursus</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tipe</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tanggal</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Aksi</th>
+                <th className="px-4 py-3 text-left font-medium text-primary-800">Materi</th>
+                <th className="px-4 py-3 text-left font-medium text-primary-800">Kursus</th>
+                <th className="px-4 py-3 text-left font-medium text-primary-800">Tipe</th>
+                <th className="px-4 py-3 text-left font-medium text-primary-800">Aksi</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {materials.map((m) => (
+            <tbody className="divide-y">
+              {materials.map(m => (
                 <tr key={m.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{m.title}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{getCourseName(m.courseId)}</td>
-                  <td className="px-6 py-4">
-                    <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">{m.type}</span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{new Date(m.createdAt).toLocaleDateString('id-ID')}</td>
-                  <td className="px-6 py-4 text-right space-x-2">
-                    <button onClick={() => handleEdit(m)} className="text-indigo-600 hover:text-indigo-900 text-sm">Edit</button>
-                    <button onClick={() => handleDelete(m.id)} className="text-red-600 hover:text-red-900 text-sm">Hapus</button>
-                  </td>
+                  <td className="px-4 py-3 font-medium">{m.title}</td>
+                  <td className="px-4 py-3 text-gray-600">{m.courseName}</td>
+                  <td className="px-4 py-3"><span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">{m.type}</span></td>
+                  <td className="px-4 py-3"><button onClick={() => handleDelete(m.id)} className="text-accent-600 hover:text-accent-800 text-xs font-medium">Hapus</button></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        {showModal && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">{editingMaterial ? 'Edit Materi' : 'Tambah Materi'}</h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Kursus</label>
-                  <select value={formData.courseId} onChange={(e) => setFormData({ ...formData, courseId: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" required>
-                    <option value="">Pilih Kursus</option>
-                    {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Judul</label>
-                  <input type="text" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" required />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tipe</label>
-                  <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value as 'text' | 'video' | 'document' })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900">
-                    <option value="text">Teks</option>
-                    <option value="video">Video</option>
-                    <option value="document">Dokumen</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Konten</label>
-                  <textarea value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" rows={4} required />
-                </div>
-                {formData.type !== 'text' && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">URL</label>
-                    <input type="url" value={formData.url} onChange={(e) => setFormData({ ...formData, url: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" />
-                  </div>
-                )}
-                <div className="flex space-x-3 pt-4">
-                  <button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium">{editingMaterial ? 'Update' : 'Tambah'}</button>
-                  <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg font-medium">Batal</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

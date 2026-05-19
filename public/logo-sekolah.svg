@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="200" height="220">
+  <!-- Background circle (subtle) -->
+  <circle cx="100" cy="100" r="95" fill="none"/>
+  
+  <!-- Green leaves (left and right) -->
+  <path d="M100 45 C75 55, 45 75, 40 100 C38 110, 42 115, 50 112 C58 109, 70 95, 80 80 C85 72, 90 60, 100 45Z" fill="#15803d"/>
+  <path d="M100 45 C125 55, 155 75, 160 100 C162 110, 158 115, 150 112 C142 109, 130 95, 120 80 C115 72, 110 60, 100 45Z" fill="#15803d"/>
+  
+  <!-- Inner lighter green leaves -->
+  <path d="M100 52 C80 60, 55 78, 50 98 C49 105, 52 108, 57 106 C63 103, 73 92, 82 80 C87 73, 93 63, 100 52Z" fill="#22c55e"/>
+  <path d="M100 52 C120 60, 145 78, 150 98 C151 105, 148 108, 143 106 C137 103, 127 92, 118 80 C113 73, 107 63, 100 52Z" fill="#22c55e"/>
+
+  <!-- Star (yellow/gold) at top -->
+  <polygon points="100,15 104,28 118,28 107,36 111,49 100,41 89,49 93,36 82,28 96,28" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+  
+  <!-- Additional small star rays -->
+  <polygon points="100,18 103,27 113,27 105,33 108,43 100,37 92,43 95,33 87,27 97,27" fill="#fbbf24"/>
+
+  <!-- Open book -->
+  <path d="M60 95 L100 82 L140 95 L140 140 L100 125 L60 140 Z" fill="#ffffff" stroke="#d4d4d4" stroke-width="1"/>
+  <!-- Book left page -->
+  <path d="M60 95 L100 82 L100 125 L60 140 Z" fill="#fefce8"/>
+  <!-- Book right page -->
+  <path d="M100 82 L140 95 L140 140 L100 125 Z" fill="#ffffff"/>
+  <!-- Book spine -->
+  <line x1="100" y1="82" x2="100" y2="125" stroke="#d4d4d4" stroke-width="1.5"/>
+  <!-- Book lines (left page) -->
+  <line x1="68" y1="108" x2="95" y2="98" stroke="#d1d5db" stroke-width="0.8"/>
+  <line x1="68" y1="115" x2="95" y2="105" stroke="#d1d5db" stroke-width="0.8"/>
+  <line x1="68" y1="122" x2="95" y2="112" stroke="#d1d5db" stroke-width="0.8"/>
+  <!-- Book lines (right page) -->
+  <line x1="105" y1="98" x2="132" y2="108" stroke="#d1d5db" stroke-width="0.8"/>
+  <line x1="105" y1="105" x2="132" y2="115" stroke="#d1d5db" stroke-width="0.8"/>
+  <line x1="105" y1="112" x2="132" y2="122" stroke="#d1d5db" stroke-width="0.8"/>
+  
+  <!-- Pencil/pen on book -->
+  <rect x="96" y="65" width="8" height="22" rx="2" fill="#eab308" stroke="#ca8a04" stroke-width="0.5"/>
+  <polygon points="96,87 104,87 100,93" fill="#374151"/>
+  <rect x="96" y="63" width="8" height="4" rx="1" fill="#dc2626"/>
+
+  <!-- Red ribbon/banner -->
+  <path d="M35 155 C35 150, 40 145, 50 145 L150 145 C160 145, 165 150, 165 155 L165 175 C165 180, 160 185, 150 185 L50 185 C40 185, 35 180, 35 175 Z" fill="#dc2626"/>
+  <!-- Ribbon fold left -->
+  <path d="M35 155 L25 150 L25 180 L35 175 Z" fill="#991b1b"/>
+  <!-- Ribbon fold right -->
+  <path d="M165 155 L175 150 L175 180 L165 175 Z" fill="#991b1b"/>
+  <!-- Ribbon highlight -->
+  <path d="M40 148 L160 148 L160 152 L40 152 Z" fill="#ef4444" opacity="0.5"/>
+  
+  <!-- Text on ribbon -->
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#ffffff" letter-spacing="2">KARTIKA JAYA</text>
+</svg>
