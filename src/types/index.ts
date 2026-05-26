@@ -67,6 +67,11 @@ export interface Assignment {
   title: string;
   description: string;
   imageUrl?: string; // Photo of task/instructions uploaded by guru
+  videoUrl?: string; // Video URL attached by guru
+  fileUrl?: string; // Document/file URL attached by guru
+  fileName?: string; // Name of attached document/file
+  rppUrl?: string; // RPP file URL
+  rppName?: string; // RPP file name
   dueDate: string;
   createdAt: string;
 }

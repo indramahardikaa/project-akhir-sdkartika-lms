@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
 import { getCoursesByGuru, getAssignmentsByGuru, createAssignment, updateAssignment, deleteAssignment, getSubmissionsByAssignment, gradeSubmission, getUsers } from '@/lib/data';
-import { Assignment, AssignmentSubmission, Course, User } from '@/types';
+import { Assignment, AssignmentSubmission, Course } from '@/types';
 
 export default function GuruAssignmentsPage() {
   const { user, isLoading } = useAuth();
@@ -17,7 +17,18 @@ export default function GuruAssignmentsPage() {
   const [editingAssignment, setEditingAssignment] = useState<Assignment | null>(null);
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null);
   const [submissions, setSubmissions] = useState<(AssignmentSubmission & { studentName: string })[]>([]);
-  const [formData, setFormData] = useState({ courseId: '', title: '', description: '', imageUrl: '', dueDate: '' });
+  const [formData, setFormData] = useState({
+    courseId: '',
+    title: '',
+    description: '',
+    imageUrl: '',
+    videoUrl: '',
+    fileUrl: '',
+    fileName: '',
+    rppUrl: '',
+    rppName: '',
+    dueDate: ''
+  });
   const [gradeForm, setGradeForm] = useState<{ id: string; grade: number; feedback: string } | null>(null);
 
   useEffect(() => {
@@ -25,7 +36,6 @@ export default function GuruAssignmentsPage() {
     if (!user || user.role !== 'guru') { router.push('/login'); return; }
     loadData();
   }, [user, isLoading, router]);
-
 
   const loadData = () => {
     if (!user) return;
@@ -44,13 +54,24 @@ export default function GuruAssignmentsPage() {
     }
     setShowModal(false);
     setEditingAssignment(null);
-    setFormData({ courseId: '', title: '', description: '', imageUrl: '', dueDate: '' });
+    setFormData({ courseId: '', title: '', description: '', imageUrl: '', videoUrl: '', fileUrl: '', fileName: '', rppUrl: '', rppName: '', dueDate: '' });
     loadData();
   };
 
   const handleEdit = (a: Assignment) => {
     setEditingAssignment(a);
-    setFormData({ courseId: a.courseId, title: a.title, description: a.description, imageUrl: a.imageUrl || '', dueDate: a.dueDate.split('T')[0] });
+    setFormData({
+      courseId: a.courseId,
+      title: a.title,
+      description: a.description,
+      imageUrl: a.imageUrl || '',
+      videoUrl: a.videoUrl || '',
+      fileUrl: a.fileUrl || '',
+      fileName: a.fileName || '',
+      rppUrl: a.rppUrl || '',
+      rppName: a.rppName || '',
+      dueDate: a.dueDate.split('T')[0]
+    });
     setShowModal(true);
   };
 
@@ -96,7 +117,6 @@ export default function GuruAssignmentsPage() {
     return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
   }
 
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -106,7 +126,7 @@ export default function GuruAssignmentsPage() {
             <h1 className="text-3xl font-bold text-gray-900">Forum Tugas</h1>
             <p className="text-gray-600 mt-1">Buat tugas dan lihat hasil pengumpulan siswa</p>
           </div>
-          <button onClick={() => { setEditingAssignment(null); setFormData({ courseId: '', title: '', description: '', imageUrl: '', dueDate: '' }); setShowModal(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+          <button onClick={() => { setEditingAssignment(null); setFormData({ courseId: '', title: '', description: '', imageUrl: '', videoUrl: '', fileUrl: '', fileName: '', rppUrl: '', rppName: '', dueDate: '' }); setShowModal(true); }} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
             + Buat Tugas
           </button>
         </div>
@@ -126,6 +146,27 @@ export default function GuruAssignmentsPage() {
                       <img src={a.imageUrl} alt="Foto Tugas" className="max-w-xs rounded-lg border" />
                     </div>
                   )}
+                  {/* Show attachments */}
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {a.videoUrl && (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-red-50 text-red-700 rounded text-xs">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /></svg>
+                        Video
+                      </span>
+                    )}
+                    {a.fileUrl && (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-50 text-yellow-700 rounded text-xs">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                        {a.fileName || 'Dokumen'}
+                      </span>
+                    )}
+                    {a.rppUrl && (
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                        {a.rppName || 'RPP'}
+                      </span>
+                    )}
+                  </div>
                   <p className="text-xs text-gray-500">Deadline: {new Date(a.dueDate).toLocaleDateString('id-ID')}</p>
                 </div>
                 <div className="flex flex-col space-y-2 ml-4">
@@ -144,11 +185,10 @@ export default function GuruAssignmentsPage() {
           </div>
         )}
 
-
         {/* Create/Edit Assignment Modal */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
               <h2 className="text-xl font-bold text-gray-900 mb-4">{editingAssignment ? 'Edit Tugas' : 'Buat Tugas Baru'}</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -166,12 +206,50 @@ export default function GuruAssignmentsPage() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Deskripsi / Instruksi</label>
                   <textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" rows={3} required />
                 </div>
+
+                {/* Photo Upload */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Upload Foto Soal (opsional)</label>
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
                   {formData.imageUrl && <img src={formData.imageUrl} alt="Preview" className="mt-2 max-w-full h-32 object-cover rounded-lg" />}
                 </div>
-                <div>
+
+                {/* Video URL */}
+                <div className="border-t border-gray-200 pt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <span className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /></svg>
+                      URL Video (opsional)
+                    </span>
+                  </label>
+                  <input type="url" value={formData.videoUrl} onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" placeholder="https://youtube.com/watch?v=..." />
+                </div>
+
+                {/* File/Document URL */}
+                <div className="border-t border-gray-200 pt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <span className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                      Dokumen / File (opsional)
+                    </span>
+                  </label>
+                  <input type="url" value={formData.fileUrl} onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 mb-2" placeholder="URL file dokumen (Google Drive, dll)" />
+                  <input type="text" value={formData.fileName} onChange={(e) => setFormData({ ...formData, fileName: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" placeholder="Nama file (contoh: Soal_Latihan.pdf)" />
+                </div>
+
+                {/* RPP URL */}
+                <div className="border-t border-gray-200 pt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <span className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                      RPP (opsional)
+                    </span>
+                  </label>
+                  <input type="url" value={formData.rppUrl} onChange={(e) => setFormData({ ...formData, rppUrl: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 mb-2" placeholder="URL file RPP" />
+                  <input type="text" value={formData.rppName} onChange={(e) => setFormData({ ...formData, rppName: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" placeholder="Nama RPP (contoh: RPP_Matematika_Bab1.pdf)" />
+                </div>
+
+                <div className="border-t border-gray-200 pt-4">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Deadline</label>
                   <input type="date" value={formData.dueDate} onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900" required />
                 </div>
@@ -183,7 +261,6 @@ export default function GuruAssignmentsPage() {
             </div>
           </div>
         )}
-
 
         {/* View Submissions Modal */}
         {showSubmissionsModal && selectedAssignment && (
