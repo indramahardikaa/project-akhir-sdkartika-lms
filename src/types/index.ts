@@ -6,6 +6,16 @@ export interface User {
   email: string;
   password: string;
   role: Role;
+  classId?: string; // For siswa - which class they belong to
+  createdAt: string;
+}
+
+export interface ClassRoom {
+  id: string;
+  name: string; // e.g., "Kelas 1A", "Kelas 1B"
+  grade: number; // 1-6
+  section: string; // A, B, C
+  guruId?: string; // Wali kelas
   createdAt: string;
 }
 
@@ -24,8 +34,12 @@ export interface Material {
   courseId: string;
   title: string;
   content: string;
-  type: 'text' | 'video' | 'document';
+  type: 'text' | 'video' | 'document' | 'rpp';
   url?: string;
+  videoUrl?: string;
+  fileUrl?: string;
+  fileName?: string;
+  order: number; // For sequential reading
   createdAt: string;
 }
 
@@ -35,4 +49,43 @@ export interface Enrollment {
   courseId: string;
   enrolledAt: string;
   progress: number;
+}
+
+export interface ReadingProgress {
+  id: string;
+  siswaId: string;
+  materialId: string;
+  courseId: string;
+  completed: boolean;
+  completedAt?: string;
+}
+
+export interface Assignment {
+  id: string;
+  courseId: string;
+  guruId: string;
+  title: string;
+  description: string;
+  imageUrl?: string; // Photo of task/instructions uploaded by guru
+  dueDate: string;
+  createdAt: string;
+}
+
+export interface AssignmentSubmission {
+  id: string;
+  assignmentId: string;
+  siswaId: string;
+  imageUrl: string; // Photo uploaded by siswa
+  submittedAt: string;
+  grade?: number;
+  feedback?: string;
+}
+
+export interface ClassNote {
+  id: string;
+  classId: string;
+  guruId: string;
+  title: string;
+  content: string;
+  createdAt: string;
 }
