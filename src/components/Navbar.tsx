@@ -30,7 +30,7 @@ export default function Navbar() {
       case 'admin':
         return [
           { href: '/admin', label: 'Dashboard' },
-          { href: '/admin/students', label: 'Kelas & Siswa' },
+          { href: '/admin/students', label: 'Manajemen Kelas' },
           { href: '/admin/courses', label: 'Mata Pelajaran' },
           { href: '/admin/materials', label: 'Materi' },
           { href: '/admin/users', label: 'Pengguna' },

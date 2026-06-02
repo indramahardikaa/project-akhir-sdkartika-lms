@@ -136,7 +136,11 @@ export function getUserByEmail(email: string): User | undefined {
 }
 
 export function getUsersByClass(classId: string): User[] {
-  return getUsers().filter((u) => u.role === 'siswa' && u.classId === classId);
+  return getUsers().filter((u) => u.role === 'siswa' && u.classId === classId && !u.isAlumni);
+}
+
+export function getAlumniUsers(): User[] {
+  return getUsers().filter((u) => u.role === 'siswa' && u.isAlumni === true);
 }
 
 export function createUser(user: Omit<User, 'id' | 'createdAt'>): User {
@@ -425,4 +429,76 @@ export function deleteClassNote(id: string): boolean {
   if (filtered.length === notes.length) return false;
   saveToStorage('lms_class_notes', filtered);
   return true;
+}
+
+
+
+// Class Promotion (Kenaikan Kelas)
+export function promoteClass(classId: string): { promoted: number; graduated: number } {
+  const classRoom = getClassRoomById(classId);
+  if (!classRoom) return { promoted: 0, graduated: 0 };
+
+  const students = getUsersByClass(classId);
+  const users = getUsers();
+  let promoted = 0;
+  let graduated = 0;
+
+  if (classRoom.grade >= 6) {
+    // Kelas 6 → Alumni
+    students.forEach((student) => {
+      const index = users.findIndex((u) => u.id === student.id);
+      if (index !== -1) {
+        users[index] = { ...users[index], isAlumni: true, classId: classId };
+        graduated++;
+      }
+    });
+  } else {
+    // Find target class (same section, next grade)
+    const classRooms = getClassRooms();
+    const targetClass = classRooms.find(
+      (c) => c.grade === classRoom.grade + 1 && c.section === classRoom.section
+    );
+
+    if (targetClass) {
+      students.forEach((student) => {
+        const index = users.findIndex((u) => u.id === student.id);
+        if (index !== -1) {
+          users[index] = { ...users[index], classId: targetClass.id };
+          promoted++;
+        }
+      });
+    } else {
+      // If no matching class exists, create one
+      const newClassName = `Kelas ${classRoom.grade + 1}${classRoom.section}`;
+      const newClass = createClassRoom({ name: newClassName, grade: classRoom.grade + 1, section: classRoom.section });
+      students.forEach((student) => {
+        const index = users.findIndex((u) => u.id === student.id);
+        if (index !== -1) {
+          users[index] = { ...users[index], classId: newClass.id };
+          promoted++;
+        }
+      });
+    }
+  }
+
+  saveToStorage('lms_users', users);
+  return { promoted, graduated };
+}
+
+// Promote all classes at once (kenaikan kelas massal)
+export function promoteAllClasses(): { totalPromoted: number; totalGraduated: number } {
+  const classRooms = getClassRooms();
+  let totalPromoted = 0;
+  let totalGraduated = 0;
+
+  // Process from highest grade to lowest to avoid conflicts
+  const sortedClasses = [...classRooms].sort((a, b) => b.grade - a.grade);
+  
+  sortedClasses.forEach((room) => {
+    const { promoted, graduated } = promoteClass(room.id);
+    totalPromoted += promoted;
+    totalGraduated += graduated;
+  });
+
+  return { totalPromoted, totalGraduated };
 }
