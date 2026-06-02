@@ -7,6 +7,7 @@ export interface User {
   password: string;
   role: Role;
   classId?: string; // For siswa - which class they belong to
+  isAlumni?: boolean; // For siswa who graduated (kelas 6 naik kelas)
   createdAt: string;
 }
 
