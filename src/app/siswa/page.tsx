@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
+import DashboardLayout from '@/components/DashboardLayout';
 import { getEnrollmentsBySiswa, getCourses, getMaterials } from '@/lib/data';
 
 export default function SiswaDashboard() {
@@ -30,9 +30,9 @@ export default function SiswaDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+
+      <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Dashboard Siswa</h1>
           <p className="text-gray-600 mt-1">Selamat datang, {user.name}. Ayo mulai belajar!</p>
@@ -89,7 +89,7 @@ export default function SiswaDashboard() {
             </button>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

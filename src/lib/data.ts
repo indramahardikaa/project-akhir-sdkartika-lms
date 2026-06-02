@@ -1,4 +1,4 @@
-import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote } from '@/types';
+import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote, Attendance, Announcement } from '@/types';
 
 // Default seed data
 const defaultClassRooms: ClassRoom[] = [
@@ -501,4 +501,102 @@ export function promoteAllClasses(): { totalPromoted: number; totalGraduated: nu
   });
 
   return { totalPromoted, totalGraduated };
+}
+
+
+
+// Attendance CRUD
+const defaultAttendance: Attendance[] = [];
+
+export function getAttendance(): Attendance[] {
+  return getFromStorage('lms_attendance', defaultAttendance);
+}
+
+export function getAttendanceByClass(classId: string): Attendance[] {
+  return getAttendance().filter((a) => a.classId === classId);
+}
+
+export function getAttendanceByDate(classId: string, date: string): Attendance[] {
+  return getAttendance().filter((a) => a.classId === classId && a.date === date);
+}
+
+export function getAttendanceBySiswa(siswaId: string): Attendance[] {
+  return getAttendance().filter((a) => a.siswaId === siswaId);
+}
+
+export function createAttendance(attendance: Omit<Attendance, 'id' | 'createdAt'>): Attendance {
+  const records = getAttendance();
+  const newRecord: Attendance = { ...attendance, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  records.push(newRecord);
+  saveToStorage('lms_attendance', records);
+  return newRecord;
+}
+
+export function updateAttendance(id: string, data: Partial<Attendance>): Attendance | undefined {
+  const records = getAttendance();
+  const index = records.findIndex((a) => a.id === id);
+  if (index === -1) return undefined;
+  records[index] = { ...records[index], ...data };
+  saveToStorage('lms_attendance', records);
+  return records[index];
+}
+
+export function saveAttendanceBatch(classId: string, guruId: string, date: string, entries: { siswaId: string; status: 'hadir' | 'sakit' | 'izin' | 'alpa'; note?: string }[]): void {
+  const records = getAttendance();
+  // Remove existing records for this class and date
+  const filtered = records.filter((a) => !(a.classId === classId && a.date === date));
+  // Add new entries
+  entries.forEach((entry) => {
+    filtered.push({
+      id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+      classId,
+      guruId,
+      siswaId: entry.siswaId,
+      date,
+      status: entry.status,
+      note: entry.note,
+      createdAt: new Date().toISOString(),
+    });
+  });
+  saveToStorage('lms_attendance', filtered);
+}
+
+
+// Announcements CRUD
+const defaultAnnouncements: Announcement[] = [
+  { id: '1', title: 'Selamat Datang di LMS SD Kartika', content: 'Selamat datang di Learning Management System SD Kartika Jaya X-2. Gunakan platform ini untuk kegiatan belajar mengajar secara digital.', authorId: '1', authorName: 'Administrator', authorRole: 'admin', targetRole: 'all', createdAt: '2024-01-15T00:00:00Z' },
+  { id: '2', title: 'Jadwal UTS Semester Genap', content: 'UTS Semester Genap akan dilaksanakan pada tanggal 10-15 Maret 2024. Persiapkan diri dengan baik.', authorId: '1', authorName: 'Administrator', authorRole: 'admin', targetRole: 'all', createdAt: '2024-02-20T00:00:00Z' },
+];
+
+export function getAnnouncements(): Announcement[] {
+  return getFromStorage('lms_announcements', defaultAnnouncements);
+}
+
+export function getAnnouncementsByTarget(role: string): Announcement[] {
+  return getAnnouncements().filter((a) => a.targetRole === 'all' || a.targetRole === role);
+}
+
+export function createAnnouncement(announcement: Omit<Announcement, 'id' | 'createdAt'>): Announcement {
+  const announcements = getAnnouncements();
+  const newAnnouncement: Announcement = { ...announcement, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  announcements.push(newAnnouncement);
+  saveToStorage('lms_announcements', announcements);
+  return newAnnouncement;
+}
+
+export function updateAnnouncement(id: string, data: Partial<Announcement>): Announcement | undefined {
+  const announcements = getAnnouncements();
+  const index = announcements.findIndex((a) => a.id === id);
+  if (index === -1) return undefined;
+  announcements[index] = { ...announcements[index], ...data };
+  saveToStorage('lms_announcements', announcements);
+  return announcements[index];
+}
+
+export function deleteAnnouncement(id: string): boolean {
+  const announcements = getAnnouncements();
+  const filtered = announcements.filter((a) => a.id !== id);
+  if (filtered.length === announcements.length) return false;
+  saveToStorage('lms_announcements', filtered);
+  return true;
 }

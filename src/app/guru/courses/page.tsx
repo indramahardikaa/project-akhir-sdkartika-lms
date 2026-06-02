@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
+import DashboardLayout from '@/components/DashboardLayout';
 import { getCoursesByGuru, getMaterialsByCourse, getEnrollmentsByCourse } from '@/lib/data';
 import { Course } from '@/types';
 
@@ -23,9 +23,9 @@ export default function GuruCoursesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+
+      <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Kursus Saya</h1>
           <p className="text-gray-600 mt-1">Daftar kursus yang Anda ampu</p>
@@ -54,7 +54,7 @@ export default function GuruCoursesPage() {
             <p className="text-gray-500">Belum ada kursus yang diampu. Hubungi admin untuk menambahkan kursus.</p>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

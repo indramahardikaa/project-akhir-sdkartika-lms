@@ -90,3 +90,26 @@ export interface ClassNote {
   content: string;
   createdAt: string;
 }
+
+export interface Attendance {
+  id: string;
+  classId: string;
+  guruId: string;
+  siswaId: string;
+  date: string;
+  status: 'hadir' | 'sakit' | 'izin' | 'alpa';
+  note?: string;
+  createdAt: string;
+}
+
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  authorId: string;
+  authorName: string;
+  authorRole: Role;
+  targetRole?: Role | 'all'; // who can see it
+  createdAt: string;
+}
+

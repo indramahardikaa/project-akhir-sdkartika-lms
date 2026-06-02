@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
+import DashboardLayout from '@/components/DashboardLayout';
 import { getUsers, createUser, updateUser, deleteUser } from '@/lib/data';
 import { User, Role } from '@/types';
 
@@ -67,9 +67,9 @@ export default function AdminUsersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Kelola Pengguna</h1>
@@ -180,7 +180,7 @@ export default function AdminUsersPage() {
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

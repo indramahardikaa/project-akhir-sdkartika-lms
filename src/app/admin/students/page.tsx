@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
+import DashboardLayout from '@/components/DashboardLayout';
 import { getClassRooms, getUsersByClass, getUsers, updateUser, createClassRoom, deleteClassRoom, createUser, deleteUser, promoteClass, getAlumniUsers, getClassRoomById } from '@/lib/data';
 import { ClassRoom, User } from '@/types';
 
@@ -155,9 +155,9 @@ export default function AdminStudentsPage() {
   // ALUMNI VIEW
   if (showAlumni) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <DashboardLayout>
+  
+        <div className="max-w-7xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <button onClick={handleBackToClasses} className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
               <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
@@ -200,17 +200,17 @@ export default function AdminStudentsPage() {
               </table>
             </div>
           )}
-        </main>
-      </div>
+        </div>
+      </DashboardLayout>
     );
   }
 
   // STUDENT LIST VIEW (inside a class)
   if (selectedClass) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+      <DashboardLayout>
+  
+        <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
               <button onClick={handleBackToClasses} className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
@@ -364,16 +364,16 @@ export default function AdminStudentsPage() {
               </div>
             </div>
           )}
-        </main>
-      </div>
+        </div>
+      </DashboardLayout>
     );
   }
 
   // MAIN VIEW - CLASS LIST
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Manajemen Kelas</h1>
@@ -454,7 +454,7 @@ export default function AdminStudentsPage() {
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

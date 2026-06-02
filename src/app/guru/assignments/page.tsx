@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import Navbar from '@/components/Navbar';
+import DashboardLayout from '@/components/DashboardLayout';
 import { getCoursesByGuru, getAssignmentsByGuru, createAssignment, updateAssignment, deleteAssignment, getSubmissionsByAssignment, gradeSubmission, getUsers } from '@/lib/data';
 import { Assignment, AssignmentSubmission, Course, User } from '@/types';
 
@@ -98,9 +98,9 @@ export default function GuruAssignmentsPage() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navbar />
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <DashboardLayout>
+
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Forum Tugas</h1>
@@ -244,7 +244,7 @@ export default function GuruAssignmentsPage() {
             </div>
           </div>
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

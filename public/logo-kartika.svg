@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Shield background -->
+  <path d="M100 10 L180 50 L180 120 C180 160 140 190 100 195 C60 190 20 160 20 120 L20 50 Z" fill="#1a7a3a" stroke="#145a2a" stroke-width="3"/>
+  <!-- White inner shield -->
+  <path d="M100 25 L165 58 L165 115 C165 148 132 173 100 178 C68 173 35 148 35 115 L35 58 Z" fill="white" stroke="#1a7a3a" stroke-width="1"/>
+  <!-- Open book -->
+  <path d="M60 110 L100 100 L100 145 L60 155 Z" fill="#f5f5dc" stroke="#333" stroke-width="1.5"/>
+  <path d="M140 110 L100 100 L100 145 L140 155 Z" fill="#fffff0" stroke="#333" stroke-width="1.5"/>
+  <line x1="100" y1="100" x2="100" y2="145" stroke="#333" stroke-width="1.5"/>
+  <!-- Book lines -->
+  <line x1="70" y1="120" x2="95" y2="115" stroke="#666" stroke-width="0.7"/>
+  <line x1="70" y1="128" x2="95" y2="123" stroke="#666" stroke-width="0.7"/>
+  <line x1="70" y1="136" x2="95" y2="131" stroke="#666" stroke-width="0.7"/>
+  <line x1="105" y1="115" x2="130" y2="120" stroke="#666" stroke-width="0.7"/>
+  <line x1="105" y1="123" x2="130" y2="128" stroke="#666" stroke-width="0.7"/>
+  <line x1="105" y1="131" x2="130" y2="136" stroke="#666" stroke-width="0.7"/>
+  <!-- Lotus/Kartika flower -->
+  <ellipse cx="100" cy="70" rx="8" ry="20" fill="white" stroke="#1a7a3a" stroke-width="1.5"/>
+  <ellipse cx="100" cy="70" rx="8" ry="20" fill="white" stroke="#1a7a3a" stroke-width="1.5" transform="rotate(60 100 70)"/>
+  <ellipse cx="100" cy="70" rx="8" ry="20" fill="white" stroke="#1a7a3a" stroke-width="1.5" transform="rotate(120 100 70)"/>
+  <circle cx="100" cy="70" r="8" fill="#ffd700" stroke="#1a7a3a" stroke-width="1"/>
+  <!-- Green leaves -->
+  <path d="M75 85 C65 75 70 60 80 65" fill="#1a7a3a" stroke="#145a2a" stroke-width="1"/>
+  <path d="M125 85 C135 75 130 60 120 65" fill="#1a7a3a" stroke="#145a2a" stroke-width="1"/>
+  <!-- Banner -->
+  <path d="M55 160 L145 160 L140 170 L145 180 L55 180 L60 170 Z" fill="#cc0000" stroke="#990000" stroke-width="1"/>
+  <text x="100" y="174" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Arial">KARTIKA JAYA</text>
+</svg>
