@@ -25,7 +25,7 @@ export default function GuruDashboard() {
   }, [user, isLoading, router]);
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
   return (
@@ -64,8 +64,8 @@ export default function GuruDashboard() {
 
           <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <div className="flex items-center">
-              <div className="p-3 bg-purple-100 rounded-lg">
-                <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197" /></svg>
+              <div className="p-3 bg-green-100 rounded-lg">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197" /></svg>
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-500">Siswa Terdaftar</p>
@@ -86,9 +86,9 @@ export default function GuruDashboard() {
               <h3 className="font-medium text-green-900">Kelola Materi</h3>
               <p className="text-sm text-green-600 mt-1">Tambah dan edit materi</p>
             </button>
-            <button onClick={() => router.push('/guru/students')} className="p-4 bg-purple-50 hover:bg-purple-100 rounded-lg text-left transition-colors">
-              <h3 className="font-medium text-purple-900">Lihat Siswa</h3>
-              <p className="text-sm text-purple-600 mt-1">Pantau progres siswa</p>
+            <button onClick={() => router.push('/guru/students')} className="p-4 bg-green-50 hover:bg-green-100 rounded-lg text-left transition-colors">
+              <h3 className="font-medium text-green-900">Lihat Siswa</h3>
+              <p className="text-sm text-green-600 mt-1">Pantau progres siswa</p>
             </button>
           </div>
         </div>

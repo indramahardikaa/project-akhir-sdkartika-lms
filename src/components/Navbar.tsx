@@ -62,11 +62,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md border-b">
+    <nav className="bg-green-700 shadow-md border-b border-green-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center space-x-8">
-            <Link href={getDashboardLink()} className="text-xl font-bold text-indigo-600">
+            <Link href={getDashboardLink()} className="text-xl font-bold text-white">
               SD Kartika LMS
             </Link>
             <div className="hidden md:flex space-x-1">
@@ -74,7 +74,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-green-100 hover:text-white hover:bg-green-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -85,7 +85,7 @@ export default function Navbar() {
             <span className={`hidden sm:inline-block px-2 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor()}`}>
               {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
             </span>
-            <span className="hidden sm:inline-block text-sm text-gray-700">{user.name}</span>
+            <span className="hidden sm:inline-block text-sm text-green-100">{user.name}</span>
             <button
               onClick={handleLogout}
               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
@@ -93,8 +93,8 @@ export default function Navbar() {
               Logout
             </button>
             {/* Mobile hamburger */}
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-md hover:bg-gray-100">
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-md hover:bg-green-600">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {mobileOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -107,21 +107,21 @@ export default function Navbar() {
       </div>
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden border-t bg-white">
+        <div className="md:hidden border-t border-green-600 bg-green-700">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {getNavLinks().map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 block px-3 py-2 rounded-md text-sm font-medium"
+                className="text-green-100 hover:text-white hover:bg-green-600 block px-3 py-2 rounded-md text-sm font-medium"
               >
                 {link.label}
               </Link>
             ))}
           </div>
-          <div className="border-t px-4 py-3">
-            <p className="text-sm text-gray-700 font-medium">{user.name}</p>
+          <div className="border-t border-green-600 px-4 py-3">
+            <p className="text-sm text-white font-medium">{user.name}</p>
             <p className={`text-xs mt-1 ${getRoleBadgeColor()} inline-block px-2 py-0.5 rounded-full`}>
               {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
             </p>

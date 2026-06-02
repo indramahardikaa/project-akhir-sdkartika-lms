@@ -63,7 +63,7 @@ export default function AdminUsersPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
   return (
@@ -77,7 +77,7 @@ export default function AdminUsersPage() {
           </div>
           <button
             onClick={() => { setEditingUser(null); setFormData({ name: '', email: '', password: '', role: 'siswa' }); setShowModal(true); }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
             + Tambah Pengguna
           </button>
@@ -109,7 +109,7 @@ export default function AdminUsersPage() {
                     {new Date(u.createdAt).toLocaleDateString('id-ID')}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                    <button onClick={() => handleEdit(u)} className="text-indigo-600 hover:text-indigo-900">Edit</button>
+                    <button onClick={() => handleEdit(u)} className="text-green-600 hover:text-green-900">Edit</button>
                     <button onClick={() => handleDelete(u.id)} className="text-red-600 hover:text-red-900">Hapus</button>
                   </td>
                 </tr>
@@ -132,7 +132,7 @@ export default function AdminUsersPage() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900"
                     required
                   />
                 </div>
@@ -142,7 +142,7 @@ export default function AdminUsersPage() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900"
                     required
                   />
                 </div>
@@ -152,7 +152,7 @@ export default function AdminUsersPage() {
                     type="password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900"
                     required={!editingUser}
                   />
                 </div>
@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
                   <select
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value as Role })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900"
                   >
                     <option value="admin">Admin</option>
                     <option value="guru">Guru</option>
@@ -169,7 +169,7 @@ export default function AdminUsersPage() {
                   </select>
                 </div>
                 <div className="flex space-x-3 pt-4">
-                  <button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium transition-colors">
+                  <button type="submit" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium transition-colors">
                     {editingUser ? 'Update' : 'Tambah'}
                   </button>
                   <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg font-medium transition-colors">

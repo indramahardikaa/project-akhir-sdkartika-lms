@@ -84,7 +84,7 @@ export default function SiswaMaterialsPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
 
@@ -124,7 +124,7 @@ export default function SiswaMaterialsPage() {
               {material.type === 'text' && <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Teks</span>}
               {material.type === 'video' && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">Video</span>}
               {material.type === 'document' && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">Dokumen</span>}
-              {material.type === 'rpp' && <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">RPP</span>}
+              {material.type === 'rpp' && <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">RPP</span>}
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">{material.title}</h1>
           </div>
@@ -147,7 +147,7 @@ export default function SiswaMaterialsPage() {
             <div className="mb-6 bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
               <svg className="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
               <p className="text-gray-600 mb-3">{material.fileName || 'File Materi'}</p>
-              <a href={material.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700">
+              <a href={material.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700">
                 Download File
               </a>
             </div>
@@ -173,7 +173,7 @@ export default function SiswaMaterialsPage() {
                   Keluar
                 </button>
               ) : (
-                <button onClick={handleNext} className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition-colors">
+                <button onClick={handleNext} className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors">
                   Selanjutnya
                 </button>
               )}
@@ -198,7 +198,7 @@ export default function SiswaMaterialsPage() {
         {coursesWithMaterials.length === 0 ? (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
             <p className="text-gray-500 mb-4">Belum ada materi. Daftar kursus terlebih dahulu.</p>
-            <button onClick={() => router.push('/siswa/courses')} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+            <button onClick={() => router.push('/siswa/courses')} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
               Jelajahi Kursus
             </button>
           </div>
@@ -240,9 +240,9 @@ export default function SiswaMaterialsPage() {
                           <button
                             key={m.id}
                             onClick={() => startReading({ course, materials, progress, readMaterials, allRead }, idx)}
-                            className="w-full flex items-center p-4 bg-gray-50 hover:bg-indigo-50 rounded-lg text-left transition-colors group"
+                            className="w-full flex items-center p-4 bg-gray-50 hover:bg-green-50 rounded-lg text-left transition-colors group"
                           >
-                            <div className={`p-2 rounded-lg shadow-sm transition-colors ${isRead ? 'bg-green-100' : 'bg-white group-hover:bg-indigo-100'}`}>
+                            <div className={`p-2 rounded-lg shadow-sm transition-colors ${isRead ? 'bg-green-100' : 'bg-white group-hover:bg-green-100'}`}>
                               {m.type === 'text' && <svg className={`w-5 h-5 ${isRead ? 'text-green-600' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
                               {m.type === 'video' && <svg className={`w-5 h-5 ${isRead ? 'text-green-600' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
                               {m.type === 'document' && <svg className={`w-5 h-5 ${isRead ? 'text-green-600' : 'text-gray-600'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>}
@@ -255,7 +255,7 @@ export default function SiswaMaterialsPage() {
                             {isRead ? (
                               <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                             ) : (
-                              <svg className="w-5 h-5 text-gray-400 group-hover:text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                              <svg className="w-5 h-5 text-gray-400 group-hover:text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                             )}
                           </button>
                         );

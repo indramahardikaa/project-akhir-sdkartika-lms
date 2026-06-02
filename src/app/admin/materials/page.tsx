@@ -71,7 +71,7 @@ export default function AdminMaterialsPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
 
@@ -86,7 +86,7 @@ export default function AdminMaterialsPage() {
           </div>
           <button
             onClick={() => { setEditingMaterial(null); resetForm(); setShowModal(true); }}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
           >
             + Tambah Materi
           </button>
@@ -113,7 +113,7 @@ export default function AdminMaterialsPage() {
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">{m.order}</td>
                   <td className="px-6 py-4 text-right space-x-2">
-                    <button onClick={() => handleEdit(m)} className="text-indigo-600 hover:text-indigo-900 text-sm">Edit</button>
+                    <button onClick={() => handleEdit(m)} className="text-green-600 hover:text-green-900 text-sm">Edit</button>
                     <button onClick={() => handleDelete(m.id)} className="text-red-600 hover:text-red-900 text-sm">Hapus</button>
                   </td>
                 </tr>
@@ -175,7 +175,7 @@ export default function AdminMaterialsPage() {
                   </>
                 )}
                 <div className="flex space-x-3 pt-4">
-                  <button type="submit" className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-medium">{editingMaterial ? 'Update' : 'Tambah'}</button>
+                  <button type="submit" className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-medium">{editingMaterial ? 'Update' : 'Tambah'}</button>
                   <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg font-medium">Batal</button>
                 </div>
               </form>

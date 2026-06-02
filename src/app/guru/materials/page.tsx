@@ -70,7 +70,7 @@ export default function GuruMaterialsPage() {
       case 'text': return 'bg-blue-100 text-blue-700';
       case 'video': return 'bg-red-100 text-red-700';
       case 'document': return 'bg-yellow-100 text-yellow-700';
-      case 'rpp': return 'bg-purple-100 text-purple-700';
+      case 'rpp': return 'bg-green-100 text-green-700';
       default: return 'bg-gray-100 text-gray-700';
     }
   };
@@ -86,7 +86,7 @@ export default function GuruMaterialsPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
 

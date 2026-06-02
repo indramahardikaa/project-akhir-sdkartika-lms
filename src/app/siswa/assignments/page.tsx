@@ -79,7 +79,7 @@ export default function SiswaAssignmentsPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
 
@@ -104,7 +104,7 @@ export default function SiswaAssignmentsPage() {
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <h3 className="text-lg font-semibold text-gray-900">{assignment.title}</h3>
-                      <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs font-medium">{courseName}</span>
+                      <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-medium">{courseName}</span>
                     </div>
                     <p className="text-sm text-gray-600 mb-2">{assignment.description}</p>
                     {assignment.imageUrl && (
@@ -121,7 +121,7 @@ export default function SiswaAssignmentsPage() {
                           <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                           Anda harus membaca semua materi di mata pelajaran ini terlebih dahulu sebelum bisa mengumpulkan tugas.
                         </p>
-                        <button onClick={() => router.push('/siswa/materials')} className="mt-2 text-sm text-indigo-600 hover:text-indigo-800 font-medium underline">
+                        <button onClick={() => router.push('/siswa/materials')} className="mt-2 text-sm text-green-600 hover:text-green-800 font-medium underline">
                           Baca Materi Sekarang →
                         </button>
                       </div>
@@ -142,7 +142,7 @@ export default function SiswaAssignmentsPage() {
                         )}
                       </div>
                     ) : materialsCompleted ? (
-                      <button onClick={() => handleUpload(assignment)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                      <button onClick={() => handleUpload(assignment)} className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                         Upload Jawaban
                       </button>
                     ) : (
@@ -167,13 +167,13 @@ export default function SiswaAssignmentsPage() {
               <form onSubmit={handleSubmitAssignment} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Foto Jawaban</label>
-                  <input type="file" accept="image/*" onChange={handleImageChange} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" required />
+                  <input type="file" accept="image/*" onChange={handleImageChange} className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-green-50 file:text-green-700 hover:file:bg-green-100" required />
                   {uploadImage && (
                     <img src={uploadImage} alt="Preview" className="mt-3 max-w-full h-48 object-cover rounded-lg border" />
                   )}
                 </div>
                 <div className="flex space-x-3 pt-4">
-                  <button type="submit" disabled={!uploadImage} className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-300 text-white py-2 rounded-lg font-medium transition-colors">Kirim Jawaban</button>
+                  <button type="submit" disabled={!uploadImage} className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white py-2 rounded-lg font-medium transition-colors">Kirim Jawaban</button>
                   <button type="button" onClick={() => setShowUploadModal(false)} className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 rounded-lg font-medium">Batal</button>
                 </div>
               </form>

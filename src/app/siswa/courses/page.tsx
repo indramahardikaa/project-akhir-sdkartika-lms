@@ -47,7 +47,7 @@ export default function SiswaCoursesPage() {
   };
 
   if (isLoading || !user) {
-    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div></div>;
+    return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div></div>;
   }
 
   return (
@@ -113,7 +113,7 @@ export default function SiswaCoursesPage() {
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{c.title}</h3>
                 <p className="text-sm text-gray-600 mb-3 line-clamp-2">{c.description}</p>
                 <p className="text-xs text-gray-500 mb-4">Guru: {c.guruName}</p>
-                <button onClick={() => handleEnroll(c.id)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg text-sm font-medium transition-colors">
+                <button onClick={() => handleEnroll(c.id)} className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg text-sm font-medium transition-colors">
                   Daftar Kursus
                 </button>
               </div>
