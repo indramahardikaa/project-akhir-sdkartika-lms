@@ -4,13 +4,15 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Navbar from '@/components/Navbar';
-import { getEnrollmentsBySiswa, getAssignmentsByCourse, getSubmissionsBySiswa, createSubmission, getCourses } from '@/lib/data';
+import { getEnrollmentsBySiswa, getAssignmentsByCourse, getSubmissionsBySiswa, createSubmission, getCourses, hasCompletedAllMaterials, getMaterialsByCourse } from '@/lib/data';
 import { Assignment, AssignmentSubmission, Course } from '@/types';
 
 interface AssignmentWithStatus {
   assignment: Assignment;
   courseName: string;
+  courseId: string;
   submission?: AssignmentSubmission;
+  materialsCompleted: boolean;
 }
 
 export default function SiswaAssignmentsPage() {
@@ -39,9 +41,12 @@ export default function SiswaAssignmentsPage() {
       const course = allCourses.find(c => c.id === e.courseId);
       if (!course) return;
       const assignments = getAssignmentsByCourse(e.courseId);
+      const materials = getMaterialsByCourse(e.courseId);
+      // Check if student has read all materials for this course
+      const materialsCompleted = materials.length === 0 || hasCompletedAllMaterials(user.id, e.courseId);
       assignments.forEach(a => {
         const submission = mySubmissions.find(s => s.assignmentId === a.id);
-        allAssignments.push({ assignment: a, courseName: course.title, submission });
+        allAssignments.push({ assignment: a, courseName: course.title, courseId: e.courseId, submission, materialsCompleted });
       });
     });
 
@@ -93,7 +98,7 @@ export default function SiswaAssignmentsPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {assignmentsWithStatus.map(({ assignment, courseName, submission }) => (
+            {assignmentsWithStatus.map(({ assignment, courseName, courseId, submission, materialsCompleted }) => (
               <div key={assignment.id} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
@@ -109,6 +114,18 @@ export default function SiswaAssignmentsPage() {
                       </div>
                     )}
                     <p className="text-xs text-gray-500">Deadline: {new Date(assignment.dueDate).toLocaleDateString('id-ID')}</p>
+                    {/* Warning if materials not completed */}
+                    {!materialsCompleted && !submission && (
+                      <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <p className="text-sm text-yellow-700 flex items-center gap-2">
+                          <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                          Anda harus membaca semua materi di mata pelajaran ini terlebih dahulu sebelum bisa mengumpulkan tugas.
+                        </p>
+                        <button onClick={() => router.push('/siswa/materials')} className="mt-2 text-sm text-indigo-600 hover:text-indigo-800 font-medium underline">
+                          Baca Materi Sekarang →
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="ml-4">
                     {submission ? (
@@ -124,8 +141,12 @@ export default function SiswaAssignmentsPage() {
                           <p className="text-xs text-gray-500 mt-1">Feedback: {submission.feedback}</p>
                         )}
                       </div>
-                    ) : (
+                    ) : materialsCompleted ? (
                       <button onClick={() => handleUpload(assignment)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                        Upload Jawaban
+                      </button>
+                    ) : (
+                      <button disabled className="bg-gray-300 text-gray-500 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed">
                         Upload Jawaban
                       </button>
                     )}
