@@ -23,7 +23,7 @@ export default function AdminStudentsPage() {
   const [editingStudent, setEditingStudent] = useState<User | null>(null);
   const [passwordStudent, setPasswordStudent] = useState<User | null>(null);
   const [classForm, setClassForm] = useState({ name: '', grade: 1, section: 'A' });
-  const [studentForm, setStudentForm] = useState({ name: '', email: '', password: '', classId: '' });
+  const [studentForm, setStudentForm] = useState({ name: '', email: '', password: '', classId: '', nis: '', nisn: '' });
   const [newPassword, setNewPassword] = useState('');
   const [promoteResult, setPromoteResult] = useState<{ promoted: number; graduated: number } | null>(null);
 
@@ -86,22 +86,22 @@ export default function AdminStudentsPage() {
   const handleAddStudent = () => {
     if (!selectedClass) return;
     setEditingStudent(null);
-    setStudentForm({ name: '', email: '', password: '', classId: selectedClass.id });
+    setStudentForm({ name: '', email: '', password: '', classId: selectedClass.id, nis: '', nisn: '' });
     setShowStudentModal(true);
   };
 
   const handleEditStudent = (s: User) => {
     setEditingStudent(s);
-    setStudentForm({ name: s.name, email: s.email, password: s.password, classId: s.classId || '' });
+    setStudentForm({ name: s.name, email: s.email, password: s.password, classId: s.classId || '', nis: s.nis || '', nisn: s.nisn || '' });
     setShowStudentModal(true);
   };
 
   const handleStudentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingStudent) {
-      updateUser(editingStudent.id, { name: studentForm.name, email: studentForm.email, password: studentForm.password, classId: studentForm.classId });
+      updateUser(editingStudent.id, { name: studentForm.name, email: studentForm.email, password: studentForm.password, classId: studentForm.classId, nis: studentForm.nis, nisn: studentForm.nisn });
     } else {
-      createUser({ name: studentForm.name, email: studentForm.email, password: studentForm.password, role: 'siswa', classId: studentForm.classId });
+      createUser({ name: studentForm.name, email: studentForm.email, password: studentForm.password, role: 'siswa', classId: studentForm.classId, nis: studentForm.nis, nisn: studentForm.nisn });
     }
     setShowStudentModal(false);
     setEditingStudent(null);
@@ -245,6 +245,8 @@ export default function AdminStudentsPage() {
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">No</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nama Siswa</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">NIS</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">NISN</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Password</th>
                     <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Aksi</th>
@@ -255,6 +257,8 @@ export default function AdminStudentsPage() {
                     <tr key={s.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 text-sm text-gray-500">{idx + 1}</td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">{s.name}</td>
+                      <td className="px-6 py-4 text-sm text-gray-500">{s.nis || '-'}</td>
+                      <td className="px-6 py-4 text-sm text-gray-500">{s.nisn || '-'}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">{s.email}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">
                         <div className="flex items-center gap-2">
@@ -291,6 +295,16 @@ export default function AdminStudentsPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
                     <input type="text" value={studentForm.name} onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900" required />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">NIS</label>
+                      <input type="text" value={studentForm.nis} onChange={(e) => setStudentForm({ ...studentForm, nis: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900" placeholder="Nomor Induk Siswa" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">NISN</label>
+                      <input type="text" value={studentForm.nisn} onChange={(e) => setStudentForm({ ...studentForm, nisn: e.target.value })} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-gray-900" placeholder="Nomor Induk Nasional" />
+                    </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>

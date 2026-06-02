@@ -8,6 +8,8 @@ export interface User {
   role: Role;
   classId?: string; // For siswa - which class they belong to
   isAlumni?: boolean; // For siswa who graduated (kelas 6 naik kelas)
+  nis?: string; // Nomor Induk Siswa
+  nisn?: string; // Nomor Induk Siswa Nasional
   createdAt: string;
 }
 
@@ -113,3 +115,47 @@ export interface Announcement {
   createdAt: string;
 }
 
+
+
+export interface ExamQuestion {
+  id: string;
+  question: string;
+  options: string[]; // 4 options (A, B, C, D)
+  correctAnswer: number; // index 0-3
+}
+
+export interface Exam {
+  id: string;
+  courseId: string;
+  guruId: string;
+  title: string;
+  description: string;
+  pertemuan: number; // pertemuan ke-berapa
+  questions: ExamQuestion[];
+  duration: number; // in minutes
+  createdAt: string;
+}
+
+export interface ExamResult {
+  id: string;
+  examId: string;
+  siswaId: string;
+  answers: number[]; // student's answers (index 0-3 for each question)
+  score: number; // calculated score (0-100)
+  submittedAt: string;
+}
+
+export interface Schedule {
+  id: string;
+  type: 'mengajar' | 'exam';
+  title: string;
+  courseId?: string;
+  guruId?: string;
+  guruName?: string;
+  classId?: string;
+  className?: string;
+  day?: string; // senin, selasa, etc.
+  time?: string; // e.g., "08:00 - 09:30"
+  date?: string; // for exam schedule
+  createdAt: string;
+}

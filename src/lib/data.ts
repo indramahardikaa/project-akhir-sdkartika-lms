@@ -1,4 +1,4 @@
-import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote, Attendance, Announcement } from '@/types';
+import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote, Attendance, Announcement, Exam, ExamResult, Schedule } from '@/types';
 
 // Default seed data
 const defaultClassRooms: ClassRoom[] = [
@@ -12,12 +12,12 @@ const defaultUsers: User[] = [
   { id: '1', name: 'Administrator', email: 'admin@lms.com', password: 'admin123', role: 'admin', createdAt: '2024-01-01T00:00:00Z' },
   { id: '2', name: 'Budi Santoso', email: 'budi@lms.com', password: 'guru123', role: 'guru', createdAt: '2024-01-02T00:00:00Z' },
   { id: '3', name: 'Siti Rahayu', email: 'siti@lms.com', password: 'guru123', role: 'guru', createdAt: '2024-01-03T00:00:00Z' },
-  { id: '4', name: 'Andi Pratama', email: 'andi@lms.com', password: 'siswa123', role: 'siswa', classId: '1', createdAt: '2024-01-04T00:00:00Z' },
-  { id: '5', name: 'Dewi Lestari', email: 'dewi@lms.com', password: 'siswa123', role: 'siswa', classId: '1', createdAt: '2024-01-05T00:00:00Z' },
-  { id: '6', name: 'Rudi Hermawan', email: 'rudi@lms.com', password: 'siswa123', role: 'siswa', classId: '2', createdAt: '2024-01-06T00:00:00Z' },
-  { id: '7', name: 'Maya Sari', email: 'maya@lms.com', password: 'siswa123', role: 'siswa', classId: '2', createdAt: '2024-01-07T00:00:00Z' },
-  { id: '8', name: 'Faisal Ahmad', email: 'faisal@lms.com', password: 'siswa123', role: 'siswa', classId: '3', createdAt: '2024-01-08T00:00:00Z' },
-  { id: '9', name: 'Putri Wulandari', email: 'putri@lms.com', password: 'siswa123', role: 'siswa', classId: '4', createdAt: '2024-01-09T00:00:00Z' },
+  { id: '4', name: 'Andi Pratama', email: 'andi@lms.com', password: 'siswa123', role: 'siswa', classId: '1', nis: '2024001', nisn: '0087654321', createdAt: '2024-01-04T00:00:00Z' },
+  { id: '5', name: 'Dewi Lestari', email: 'dewi@lms.com', password: 'siswa123', role: 'siswa', classId: '1', nis: '2024002', nisn: '0087654322', createdAt: '2024-01-05T00:00:00Z' },
+  { id: '6', name: 'Rudi Hermawan', email: 'rudi@lms.com', password: 'siswa123', role: 'siswa', classId: '2', nis: '2024003', nisn: '0087654323', createdAt: '2024-01-06T00:00:00Z' },
+  { id: '7', name: 'Maya Sari', email: 'maya@lms.com', password: 'siswa123', role: 'siswa', classId: '2', nis: '2024004', nisn: '0087654324', createdAt: '2024-01-07T00:00:00Z' },
+  { id: '8', name: 'Faisal Ahmad', email: 'faisal@lms.com', password: 'siswa123', role: 'siswa', classId: '3', nis: '2024005', nisn: '0087654325', createdAt: '2024-01-08T00:00:00Z' },
+  { id: '9', name: 'Putri Wulandari', email: 'putri@lms.com', password: 'siswa123', role: 'siswa', classId: '4', nis: '2024006', nisn: '0087654326', createdAt: '2024-01-09T00:00:00Z' },
 ];
 
 
@@ -598,5 +598,137 @@ export function deleteAnnouncement(id: string): boolean {
   const filtered = announcements.filter((a) => a.id !== id);
   if (filtered.length === announcements.length) return false;
   saveToStorage('lms_announcements', filtered);
+  return true;
+}
+
+
+
+// Exam CRUD
+const defaultExams: Exam[] = [
+  {
+    id: '1', courseId: '1', guruId: '2', title: 'Exam Pertemuan 1: Pengenalan Bilangan',
+    description: 'Ujian pilihan ganda tentang pengenalan bilangan', pertemuan: 1,
+    questions: [
+      { id: '1', question: 'Bilangan bulat positif terkecil adalah...', options: ['0', '1', '-1', '2'], correctAnswer: 1 },
+      { id: '2', question: '1/2 dalam desimal adalah...', options: ['0.25', '0.5', '0.75', '1.0'], correctAnswer: 1 },
+      { id: '3', question: 'Yang termasuk bilangan bulat negatif adalah...', options: ['5', '0', '-3', '1'], correctAnswer: 2 },
+      { id: '4', question: 'Berapa hasil 3 + 5?', options: ['6', '7', '8', '9'], correctAnswer: 2 },
+      { id: '5', question: 'Bilangan pecahan 2/4 sama dengan...', options: ['1/4', '1/3', '1/2', '2/3'], correctAnswer: 2 },
+    ],
+    duration: 15, createdAt: '2024-02-20T00:00:00Z'
+  },
+];
+
+const defaultExamResults: ExamResult[] = [];
+
+export function getExams(): Exam[] {
+  return getFromStorage('lms_exams', defaultExams);
+}
+
+export function getExamById(id: string): Exam | undefined {
+  return getExams().find((e) => e.id === id);
+}
+
+export function getExamsByCourse(courseId: string): Exam[] {
+  return getExams().filter((e) => e.courseId === courseId).sort((a, b) => a.pertemuan - b.pertemuan);
+}
+
+export function getExamsByGuru(guruId: string): Exam[] {
+  return getExams().filter((e) => e.guruId === guruId);
+}
+
+export function createExam(exam: Omit<Exam, 'id' | 'createdAt'>): Exam {
+  const exams = getExams();
+  const newExam: Exam = { ...exam, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  exams.push(newExam);
+  saveToStorage('lms_exams', exams);
+  return newExam;
+}
+
+export function updateExam(id: string, data: Partial<Exam>): Exam | undefined {
+  const exams = getExams();
+  const index = exams.findIndex((e) => e.id === id);
+  if (index === -1) return undefined;
+  exams[index] = { ...exams[index], ...data };
+  saveToStorage('lms_exams', exams);
+  return exams[index];
+}
+
+export function deleteExam(id: string): boolean {
+  const exams = getExams();
+  const filtered = exams.filter((e) => e.id !== id);
+  if (filtered.length === exams.length) return false;
+  saveToStorage('lms_exams', filtered);
+  return true;
+}
+
+// Exam Results
+export function getExamResults(): ExamResult[] {
+  return getFromStorage('lms_exam_results', defaultExamResults);
+}
+
+export function getExamResultsBySiswa(siswaId: string): ExamResult[] {
+  return getExamResults().filter((r) => r.siswaId === siswaId);
+}
+
+export function getExamResultsByExam(examId: string): ExamResult[] {
+  return getExamResults().filter((r) => r.examId === examId);
+}
+
+export function getExamResultBySiswaAndExam(siswaId: string, examId: string): ExamResult | undefined {
+  return getExamResults().find((r) => r.siswaId === siswaId && r.examId === examId);
+}
+
+export function submitExamResult(result: Omit<ExamResult, 'id' | 'submittedAt'>): ExamResult {
+  const results = getExamResults();
+  const newResult: ExamResult = { ...result, id: Date.now().toString(), submittedAt: new Date().toISOString() };
+  results.push(newResult);
+  saveToStorage('lms_exam_results', results);
+  return newResult;
+}
+
+
+// Schedule CRUD
+const defaultSchedules: Schedule[] = [
+  { id: '1', type: 'mengajar', title: 'Matematika Dasar - Kelas 1A', courseId: '1', guruId: '2', guruName: 'Budi Santoso', classId: '1', className: 'Kelas 1A', day: 'Senin', time: '08:00 - 09:30', createdAt: '2024-01-10T00:00:00Z' },
+  { id: '2', type: 'mengajar', title: 'IPA Terpadu - Kelas 2A', courseId: '3', guruId: '2', guruName: 'Budi Santoso', classId: '3', className: 'Kelas 2A', day: 'Selasa', time: '08:00 - 09:30', createdAt: '2024-01-10T00:00:00Z' },
+  { id: '3', type: 'mengajar', title: 'Bahasa Indonesia - Kelas 1B', courseId: '2', guruId: '3', guruName: 'Siti Rahayu', classId: '2', className: 'Kelas 1B', day: 'Senin', time: '10:00 - 11:30', createdAt: '2024-01-10T00:00:00Z' },
+  { id: '4', type: 'exam', title: 'Exam Matematika - Pertemuan 1', courseId: '1', guruId: '2', guruName: 'Budi Santoso', classId: '1', className: 'Kelas 1A', date: '2024-03-15', time: '08:00 - 09:00', createdAt: '2024-02-20T00:00:00Z' },
+];
+
+export function getSchedules(): Schedule[] {
+  return getFromStorage('lms_schedules', defaultSchedules);
+}
+
+export function getSchedulesByType(type: 'mengajar' | 'exam'): Schedule[] {
+  return getSchedules().filter((s) => s.type === type);
+}
+
+export function getSchedulesByGuru(guruId: string): Schedule[] {
+  return getSchedules().filter((s) => s.guruId === guruId);
+}
+
+export function createSchedule(schedule: Omit<Schedule, 'id' | 'createdAt'>): Schedule {
+  const schedules = getSchedules();
+  const newSchedule: Schedule = { ...schedule, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  schedules.push(newSchedule);
+  saveToStorage('lms_schedules', schedules);
+  return newSchedule;
+}
+
+export function updateSchedule(id: string, data: Partial<Schedule>): Schedule | undefined {
+  const schedules = getSchedules();
+  const index = schedules.findIndex((s) => s.id === id);
+  if (index === -1) return undefined;
+  schedules[index] = { ...schedules[index], ...data };
+  saveToStorage('lms_schedules', schedules);
+  return schedules[index];
+}
+
+export function deleteSchedule(id: string): boolean {
+  const schedules = getSchedules();
+  const filtered = schedules.filter((s) => s.id !== id);
+  if (filtered.length === schedules.length) return false;
+  saveToStorage('lms_schedules', filtered);
   return true;
 }
