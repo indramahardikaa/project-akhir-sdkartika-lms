@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Book - LMS SD Kartika Jaya X-2</title>
+<style>
+@page { size: A4; margin: 2cm 2.5cm; }
+@media print {
+  .no-print { display: none !important; }
+  .page-break { page-break-before: always; }
+  body { font-size: 11pt; }
+  h1 { font-size: 18pt; }
+  h2 { font-size: 15pt; }
+  h3 { font-size: 13pt; }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; color: #333; background: #f9f9f9; }
+.container { max-width: 210mm; margin: 0 auto; padding: 30px 40px; background: #fff; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body>
+<div class="container">
+<!-- ============ COVER PAGE ============ -->
+<div class="cover-page" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; border: 3px double #166534; padding: 60px 40px;">
+  <div style="width:120px; height:120px; background:#166534; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:30px;">
+    <span style="color:#fff; font-size:48px; font-weight:bold;">K</span>
+  </div>
+  <h1 style="font-size:28px; color:#166534; margin-bottom:10px; letter-spacing:1px;">MANUAL BOOK</h1>
+  <h2 style="font-size:22px; color:#333; margin-bottom:5px;">Sistem Manajemen Pembelajaran (LMS)</h2>
+  <h2 style="font-size:20px; color:#166534; margin-bottom:40px;">SD Kartika Jaya X-2</h2>
+  <div style="width:80px; height:3px; background:#166534; margin:20px auto;"></div>
+  <p style="font-size:14px; color:#666; margin-top:20px;">Versi 1.0</p>
+  <p style="font-size:14px; color:#666;">Tahun Ajaran 2024/2025</p>
+  <div style="margin-top:60px; padding-top:30px; border-top:1px solid #ddd;">
+    <p style="font-size:13px; color:#555;"><strong>Disusun oleh:</strong></p>
+    <p style="font-size:16px; color:#166534; font-weight:bold; margin-top:5px;">Indra Mahardika</p>
+  </div>
+  <p style="margin-top:40px; font-size:12px; color:#999;">&copy; 2024 SD Kartika Jaya X-2. All Rights Reserved.</p>
+</div>
+
+
+<!-- ============ HALAMAN II - KATA PENGANTAR ============ -->
+<div class="page-break"></div>
+<div style="padding:40px 0;">
+  <h2 style="font-size:20px; color:#166534; text-align:center; margin-bottom:30px; border-bottom:2px solid #166534; padding-bottom:10px;">KATA PENGANTAR</h2>
+  <p style="text-indent:40px; margin-bottom:15px;">Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa, yang telah memberikan rahmat dan karunia-Nya sehingga Manual Book Sistem Manajemen Pembelajaran (LMS) SD Kartika Jaya X-2 ini dapat diselesaikan dengan baik.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Manual book ini disusun sebagai panduan bagi seluruh pengguna sistem LMS, baik Admin, Guru, maupun Siswa/i dalam mengoperasikan dan memanfaatkan fitur-fitur yang tersedia di dalam sistem pembelajaran digital ini.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Dengan adanya LMS ini, diharapkan proses belajar mengajar dapat berjalan lebih efektif, efisien, dan terstruktur. Guru dapat mengelola materi, ujian, dan penilaian secara digital, sementara siswa/i dapat mengakses pembelajaran kapan saja dan di mana saja.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Kami menyadari bahwa manual book ini masih jauh dari sempurna. Oleh karena itu, kritik dan saran yang membangun sangat kami harapkan untuk perbaikan di masa mendatang.</p>
+  <p style="text-indent:40px; margin-bottom:40px;">Semoga manual book ini bermanfaat bagi seluruh civitas akademika SD Kartika Jaya X-2.</p>
+  <div style="text-align:right; margin-top:50px;">
+    <p>Hormat kami,</p>
+    <p style="margin-top:60px; font-weight:bold;">Indra Mahardika</p>
+    <p style="font-size:12px; color:#666;">Developer & Penyusun</p>
+  </div>
+</div>
+
+
+<!-- ============ DAFTAR ISI ============ -->
+<div class="page-break"></div>
+<div style="padding:40px 0;">
+  <h2 style="font-size:20px; color:#166534; text-align:center; margin-bottom:30px; border-bottom:2px solid #166534; padding-bottom:10px;">DAFTAR ISI</h2>
+  <style>
+    .toc-item { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dotted #ccc; }
+    .toc-item span:first-child { font-weight:500; }
+    .toc-section { font-weight:bold; color:#166534; margin-top:15px; padding:8px 0; }
+  </style>
+  <div class="toc-section">Kata Pengantar <span style="float:right">ii</span></div>
+  <div class="toc-section">Daftar Isi <span style="float:right">iii</span></div>
+  <div class="toc-section" style="margin-top:20px;">BAB 1 - PENDAHULUAN</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;1.1 Tentang Aplikasi LMS</span><span>1</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;1.2 Kebutuhan Sistem</span><span>1</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;1.3 Akun Pengguna</span><span>2</span></div>
+  <div class="toc-section">BAB 2 - CARA LOGIN</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;2.1 Langkah Login</span><span>3</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;2.2 Halaman Setelah Login</span><span>4</span></div>
+  <div class="toc-section">BAB 3 - PANDUAN ADMIN</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.1 Dashboard Admin</span><span>5</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.2 Manajemen Kelas</span><span>5</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.3 Mata Pelajaran</span><span>6</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.4 Materi Pembelajaran</span><span>6</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.5 Pengguna</span><span>7</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.6 Cetak Absensi</span><span>7</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.7 Cetak Nilai</span><span>8</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.8 Jadwal</span><span>9</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;3.9 Pengumuman</span><span>9</span></div>
+  <div class="toc-section">BAB 4 - PANDUAN GURU</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.1 Dashboard Guru</span><span>10</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.2 Kelas & Siswa</span><span>10</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.3 Mata Pelajaran</span><span>11</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.4 Materi Pembelajaran</span><span>11</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.5 Forum Tugas</span><span>12</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.6 Kelola Ujian (UH, PTS, PAS)</span><span>13</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.7 Monitor Ujian Realtime</span><span>15</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.8 Penilaian Essay</span><span>16</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.9 Absensi</span><span>17</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;4.10 Cetak Nilai</span><span>17</span></div>
+  <div class="toc-section">BAB 5 - PANDUAN SISWA</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;5.1 Dashboard Siswa</span><span>19</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;5.2 Materi Pembelajaran & E-Learning</span><span>19</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;5.3 Mengerjakan Ujian</span><span>20</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;5.4 Tugas</span><span>21</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;5.5 Pengumuman</span><span>22</span></div>
+  <div class="toc-section">BAB 6 - PENUTUP</div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;6.1 Kesimpulan</span><span>23</span></div>
+  <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;6.2 Kontak Bantuan</span><span>23</span></div>
+</div>
+
+
+<!-- ============ BAB 1 - PENDAHULUAN ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 1 - PENDAHULUAN</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">1.1 Tentang Aplikasi LMS</h2>
+  <p style="text-indent:40px; margin-bottom:10px;">LMS (Learning Management System) SD Kartika Jaya X-2 adalah sistem manajemen pembelajaran berbasis web yang dirancang khusus untuk mendukung kegiatan belajar mengajar secara digital di lingkungan SD Kartika Jaya X-2.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Aplikasi ini memiliki 3 (tiga) peran pengguna:</p>
+  <table style="width:100%; border-collapse:collapse; margin:15px 0; font-size:13px;">
+    <tr style="background:#166534; color:#fff;"><th style="padding:10px; text-align:left; border:1px solid #ddd;">Peran</th><th style="padding:10px; text-align:left; border:1px solid #ddd;">Fungsi Utama</th></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">Admin</td><td style="padding:10px; border:1px solid #ddd;">Mengelola seluruh sistem: data kelas, siswa, guru, mata pelajaran, jadwal, cetak nilai & absensi</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">Guru</td><td style="padding:10px; border:1px solid #ddd;">Mengelola materi, tugas, ujian (UH/PTS/PAS), absensi, dan cetak nilai per mata pelajaran</td></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd; font-weight:bold;">Siswa</td><td style="padding:10px; border:1px solid #ddd;">Mengakses materi, mengerjakan ujian, mengumpulkan tugas, dan melihat pengumuman</td></tr>
+  </table>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">1.2 Kebutuhan Sistem</h2>
+  <p style="margin-bottom:10px;">Untuk menggunakan aplikasi LMS ini, diperlukan:</p>
+  <ul style="margin-left:30px; margin-bottom:15px;">
+    <li style="margin-bottom:5px;"><strong>Browser:</strong> Google Chrome, Mozilla Firefox, Microsoft Edge, atau Safari (versi terbaru)</li>
+    <li style="margin-bottom:5px;"><strong>Koneksi Internet:</strong> Minimal 1 Mbps</li>
+    <li style="margin-bottom:5px;"><strong>Perangkat:</strong> Komputer/Laptop, Tablet, atau Smartphone</li>
+    <li style="margin-bottom:5px;"><strong>Resolusi Layar:</strong> Minimal 360px (responsive untuk semua ukuran)</li>
+  </ul>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">1.3 Akun Pengguna</h2>
+  <p style="margin-bottom:10px;">Berikut adalah akun default yang tersedia dalam sistem:</p>
+  <table style="width:100%; border-collapse:collapse; margin:15px 0; font-size:13px;">
+    <tr style="background:#166534; color:#fff;">
+      <th style="padding:8px; border:1px solid #ddd;">Peran</th>
+      <th style="padding:8px; border:1px solid #ddd;">Nama</th>
+      <th style="padding:8px; border:1px solid #ddd;">Email</th>
+      <th style="padding:8px; border:1px solid #ddd;">Password</th>
+    </tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;">Admin</td><td style="padding:8px; border:1px solid #ddd;">Administrator</td><td style="padding:8px; border:1px solid #ddd;">admin@lms.com</td><td style="padding:8px; border:1px solid #ddd;">admin123</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:8px; border:1px solid #ddd;">Guru</td><td style="padding:8px; border:1px solid #ddd;">Budi Santoso</td><td style="padding:8px; border:1px solid #ddd;">budi@lms.com</td><td style="padding:8px; border:1px solid #ddd;">guru123</td></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;">Guru</td><td style="padding:8px; border:1px solid #ddd;">Siti Rahayu</td><td style="padding:8px; border:1px solid #ddd;">siti@lms.com</td><td style="padding:8px; border:1px solid #ddd;">guru123</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:8px; border:1px solid #ddd;">Siswa</td><td style="padding:8px; border:1px solid #ddd;">Andi Pratama</td><td style="padding:8px; border:1px solid #ddd;">andi@lms.com</td><td style="padding:8px; border:1px solid #ddd;">siswa123</td></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;">Siswa</td><td style="padding:8px; border:1px solid #ddd;">Dewi Lestari</td><td style="padding:8px; border:1px solid #ddd;">dewi@lms.com</td><td style="padding:8px; border:1px solid #ddd;">siswa123</td></tr>
+  </table>
+  <div style="background:#fffde7; border:1px solid #fdd835; border-radius:8px; padding:12px 15px; margin-top:10px;">
+    <p style="font-size:12px; color:#666;"><strong>Catatan:</strong> Password bersifat rahasia. Admin dapat menambah/mengubah akun melalui menu Pengguna.</p>
+  </div>
+</div>
+
+
+<!-- ============ BAB 2 - CARA LOGIN ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 2 - CARA LOGIN</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">2.1 Langkah Login</h2>
+  <p style="margin-bottom:15px;">Untuk masuk ke dalam sistem LMS, ikuti langkah-langkah berikut:</p>
+
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin:15px 0;">
+    <h3 style="font-size:14px; color:#166534; margin-bottom:15px;">Langkah 1: Buka Halaman Login</h3>
+    <p style="margin-bottom:10px;">Buka browser (Chrome/Firefox/Edge) kemudian ketikkan alamat website LMS di address bar:</p>
+    <div style="background:#fff; border:1px solid #ddd; border-radius:5px; padding:10px 15px; font-family:monospace; font-size:14px; color:#166534; margin:10px 0;">
+      http://localhost:3000/login
+    </div>
+    <p style="font-size:12px; color:#666; margin-top:8px;"><em>* Alamat dapat berbeda tergantung konfigurasi server sekolah</em></p>
+  </div>
+
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin:15px 0;">
+    <h3 style="font-size:14px; color:#166534; margin-bottom:15px;">Langkah 2: Masukkan Email dan Password</h3>
+    <p style="margin-bottom:10px;">Pada halaman login, Anda akan melihat form dengan 2 kolom:</p>
+    <ul style="margin-left:20px;">
+      <li style="margin-bottom:5px;"><strong>Email:</strong> Masukkan alamat email yang telah didaftarkan</li>
+      <li style="margin-bottom:5px;"><strong>Password:</strong> Masukkan password Anda (bisa diklik ikon mata untuk melihat)</li>
+    </ul>
+  </div>
+
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin:15px 0;">
+    <h3 style="font-size:14px; color:#166534; margin-bottom:15px;">Langkah 3: Klik Tombol "Masuk"</h3>
+    <p>Setelah mengisi email dan password dengan benar, klik tombol hijau <strong>"Masuk"</strong>. Sistem akan mengarahkan Anda ke dashboard sesuai peran masing-masing.</p>
+  </div>
+
+  <div style="background:#fef2f2; border:1px solid #fca5a5; border-radius:8px; padding:12px 15px; margin:15px 0;">
+    <p style="font-size:12px; color:#991b1b;"><strong>Jika Gagal Login:</strong> Pastikan email dan password yang dimasukkan sudah benar. Jika masih gagal, hubungi Admin untuk reset password.</p>
+  </div>
+
+  <!-- Screenshot placeholder -->
+  <div style="border:2px dashed #86efac; border-radius:10px; padding:40px; text-align:center; margin:20px 0; background:#f8fffe;">
+    <div style="width:100%; max-width:400px; margin:0 auto; background:#fff; border-radius:15px; padding:30px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
+      <div style="width:80px; height:80px; background:#166534; border-radius:50%; margin:0 auto 15px; display:flex; align-items:center; justify-content:center;"><span style="color:#fff; font-size:28px; font-weight:bold;">K</span></div>
+      <p style="font-size:16px; font-weight:bold; color:#333;">SD Kartika Jaya X-2</p>
+      <p style="font-size:11px; color:#999; margin-bottom:20px;">Sistem Manajemen Pembelajaran</p>
+      <div style="background:#f3f4f6; border:1px solid #e5e7eb; border-radius:8px; padding:10px; margin:8px 0; text-align:left;"><span style="color:#999; font-size:12px;">Email: admin@lms.com</span></div>
+      <div style="background:#f3f4f6; border:1px solid #e5e7eb; border-radius:8px; padding:10px; margin:8px 0; text-align:left;"><span style="color:#999; font-size:12px;">Password: ********</span></div>
+      <div style="background:#166534; color:#fff; border-radius:8px; padding:12px; margin-top:15px; font-weight:bold;">Masuk</div>
+    </div>
+    <p style="font-size:11px; color:#666; margin-top:15px; font-style:italic;">Gambar 2.1 - Tampilan Halaman Login</p>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">2.2 Halaman Setelah Login</h2>
+  <p style="margin-bottom:10px;">Setelah berhasil login, Anda akan diarahkan ke halaman dashboard sesuai peran:</p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px;">
+    <tr style="background:#166534; color:#fff;"><th style="padding:8px; border:1px solid #ddd;">Peran</th><th style="padding:8px; border:1px solid #ddd;">Halaman Tujuan</th></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;">Admin</td><td style="padding:8px; border:1px solid #ddd;">Dashboard Admin - melihat statistik pengguna, mata pelajaran, dll.</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:8px; border:1px solid #ddd;">Guru</td><td style="padding:8px; border:1px solid #ddd;">Dashboard Guru - melihat statistik kursus, materi, dan siswa</td></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;">Siswa</td><td style="padding:8px; border:1px solid #ddd;">Dashboard Siswa - melihat kursus diikuti, materi, dan progres belajar</td></tr>
+  </table>
+</div>
+
+
+<!-- ============ BAB 3 - PANDUAN ADMIN ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 3 - PANDUAN ADMIN</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">3.1 Dashboard Admin</h2>
+  <p style="margin-bottom:15px;">Setelah login sebagai Admin, Anda akan melihat halaman dashboard yang menampilkan ringkasan data sistem berupa kartu statistik:</p>
+  <ul style="margin-left:25px; margin-bottom:15px;">
+    <li><strong>Total Pengguna</strong> - Jumlah seluruh pengguna terdaftar</li>
+    <li><strong>Guru</strong> - Jumlah guru yang terdaftar</li>
+    <li><strong>Siswa</strong> - Jumlah siswa yang terdaftar</li>
+    <li><strong>Mata Pelajaran</strong> - Jumlah mata pelajaran aktif</li>
+    <li><strong>Materi</strong> - Total materi pembelajaran yang tersedia</li>
+    <li><strong>Enrollment</strong> - Jumlah pendaftaran kursus oleh siswa</li>
+  </ul>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.2 Manajemen Kelas</h2>
+  <p style="margin-bottom:10px;">Menu ini digunakan untuk mengelola data kelas dan siswa. Fitur yang tersedia:</p>
+  <div style="background:#f0fdf4; border-left:4px solid #166534; padding:15px; margin:10px 0; border-radius:0 8px 8px 0;">
+    <ul style="margin-left:15px;">
+      <li style="margin-bottom:8px;"><strong>Melihat daftar kelas</strong> - Kelas 1A, 1B, 2A, 2B, dst.</li>
+      <li style="margin-bottom:8px;"><strong>Menambah kelas baru</strong> - Klik tombol "Tambah Kelas"</li>
+      <li style="margin-bottom:8px;"><strong>Melihat siswa per kelas</strong> - Klik nama kelas untuk melihat daftar siswa</li>
+      <li style="margin-bottom:8px;"><strong>Kenaikan kelas</strong> - Memproses kenaikan kelas siswa ke tingkat berikutnya</li>
+      <li style="margin-bottom:8px;"><strong>Menambah siswa baru</strong> - Input data siswa (nama, NIS, NISN, email, password)</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.3 Mata Pelajaran</h2>
+  <p style="margin-bottom:10px;">Admin dapat melihat dan mengelola semua mata pelajaran yang tersedia di sistem:</p>
+  <div style="background:#f0fdf4; border-left:4px solid #166534; padding:15px; margin:10px 0; border-radius:0 8px 8px 0;">
+    <ul style="margin-left:15px;">
+      <li style="margin-bottom:8px;"><strong>Daftar mata pelajaran</strong> - Matematika Dasar, Bahasa Indonesia, IPA Terpadu, dll.</li>
+      <li style="margin-bottom:8px;"><strong>Informasi pengajar</strong> - Setiap mapel terhubung dengan guru pengampu</li>
+      <li style="margin-bottom:8px;"><strong>Kategori</strong> - Pengelompokan mapel (Matematika, Bahasa, Sains, dll.)</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.4 Materi Pembelajaran</h2>
+  <p style="margin-bottom:10px;">Admin dapat melihat seluruh materi yang telah diupload oleh guru:</p>
+  <ul style="margin-left:25px; margin-bottom:15px;">
+    <li><strong>Materi Teks</strong> - Materi dalam bentuk artikel/teks</li>
+    <li><strong>Materi Video</strong> - Materi berupa link video YouTube</li>
+    <li><strong>Dokumen/RPP</strong> - File dokumen yang bisa diunduh</li>
+  </ul>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.5 Pengguna</h2>
+  <p style="margin-bottom:10px;">Menu untuk mengelola seluruh akun pengguna:</p>
+  <div style="background:#f0fdf4; border-left:4px solid #166534; padding:15px; margin:10px 0; border-radius:0 8px 8px 0;">
+    <ul style="margin-left:15px;">
+      <li style="margin-bottom:8px;"><strong>Tambah pengguna baru</strong> - Buat akun baru (Admin/Guru/Siswa)</li>
+      <li style="margin-bottom:8px;"><strong>Edit data pengguna</strong> - Ubah nama, email, password, atau peran</li>
+      <li style="margin-bottom:8px;"><strong>Hapus pengguna</strong> - Menghapus akun dari sistem</li>
+      <li style="margin-bottom:8px;"><strong>Filter berdasarkan peran</strong> - Tampilkan Admin/Guru/Siswa saja</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.6 Cetak Absensi</h2>
+  <p style="margin-bottom:10px;">Fitur untuk mencetak rekap absensi siswa per kelas:</p>
+  <ol style="margin-left:25px; margin-bottom:15px;">
+    <li style="margin-bottom:5px;">Pilih kelas yang ingin dilihat</li>
+    <li style="margin-bottom:5px;">Pilih rentang tanggal</li>
+    <li style="margin-bottom:5px;">Sistem menampilkan tabel absensi (Hadir, Sakit, Izin, Alpa)</li>
+    <li style="margin-bottom:5px;">Klik tombol <strong>"Cetak"</strong> untuk mencetak/export</li>
+  </ol>
+</div>
+
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.7 Cetak Nilai (Semua Mapel)</h2>
+  <p style="margin-bottom:10px;">Fitur unggulan untuk mencetak rekap nilai siswa dari <strong>semua mata pelajaran</strong> sekaligus:</p>
+  <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:15px; margin:10px 0;">
+    <p style="font-size:13px; font-weight:bold; color:#1d4ed8; margin-bottom:10px;">Fitur Cetak Nilai Admin:</p>
+    <ul style="margin-left:15px; font-size:13px;">
+      <li style="margin-bottom:5px;"><strong>Mode Ringkasan:</strong> Tabel semua siswa x semua mapel dalam 1 halaman</li>
+      <li style="margin-bottom:5px;"><strong>Mode Detail:</strong> Per siswa dengan breakdown Tugas, UH, PTS, PAS</li>
+      <li style="margin-bottom:5px;"><strong>Nilai Akhir:</strong> Dihitung otomatis (Tugas 20% + UH 25% + PTS 25% + PAS 30%)</li>
+      <li style="margin-bottom:5px;"><strong>Predikat:</strong> A (>=90), B (>=80), C (>=70), D (<70)</li>
+      <li style="margin-bottom:5px;"><strong>Export CSV:</strong> Download data nilai dalam format spreadsheet</li>
+      <li style="margin-bottom:5px;"><strong>Statistik Kelas:</strong> Rata-rata kelas, jumlah tuntas/belum tuntas (KKM 70)</li>
+    </ul>
+  </div>
+  <p style="margin-top:10px;"><strong>Cara menggunakan:</strong></p>
+  <ol style="margin-left:25px; margin-bottom:15px;">
+    <li style="margin-bottom:5px;">Klik menu <strong>"Cetak Nilai"</strong> di sidebar</li>
+    <li style="margin-bottom:5px;">Pilih kelas dari dropdown</li>
+    <li style="margin-bottom:5px;">Pilih mode tampilan (Ringkasan / Detail per Siswa)</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Export CSV"</strong> untuk download atau <strong>"Cetak Semua"</strong> untuk print</li>
+  </ol>
+
+  <!-- Screenshot placeholder for grade -->
+  <div style="border:2px dashed #93c5fd; border-radius:10px; padding:20px; text-align:center; margin:15px 0; background:#f8faff;">
+    <table style="width:100%; border-collapse:collapse; font-size:10px; margin:10px 0;">
+      <tr style="background:#166534; color:#fff;"><th style="padding:6px; border:1px solid #ddd;">Nama</th><th style="padding:6px; border:1px solid #ddd;">Tugas</th><th style="padding:6px; border:1px solid #ddd;">UH</th><th style="padding:6px; border:1px solid #ddd;">PTS</th><th style="padding:6px; border:1px solid #ddd;">PAS</th><th style="padding:6px; border:1px solid #ddd;">Nilai Akhir</th><th style="padding:6px; border:1px solid #ddd;">Predikat</th></tr>
+      <tr><td style="padding:6px; border:1px solid #ddd;">Andi Pratama</td><td style="padding:6px; border:1px solid #ddd; color:green;">85</td><td style="padding:6px; border:1px solid #ddd; color:green;">78</td><td style="padding:6px; border:1px solid #ddd; color:green;">80</td><td style="padding:6px; border:1px solid #ddd; color:green;">75</td><td style="padding:6px; border:1px solid #ddd; font-weight:bold; color:green;">79</td><td style="padding:6px; border:1px solid #ddd;"><span style="background:#dbeafe; color:#1d4ed8; padding:2px 6px; border-radius:3px; font-weight:bold;">B</span></td></tr>
+      <tr style="background:#f9f9f9;"><td style="padding:6px; border:1px solid #ddd;">Dewi Lestari</td><td style="padding:6px; border:1px solid #ddd; color:green;">90</td><td style="padding:6px; border:1px solid #ddd; color:green;">92</td><td style="padding:6px; border:1px solid #ddd; color:green;">88</td><td style="padding:6px; border:1px solid #ddd; color:green;">95</td><td style="padding:6px; border:1px solid #ddd; font-weight:bold; color:green;">92</td><td style="padding:6px; border:1px solid #ddd;"><span style="background:#dcfce7; color:#166534; padding:2px 6px; border-radius:3px; font-weight:bold;">A</span></td></tr>
+    </table>
+    <p style="font-size:11px; color:#666; margin-top:10px; font-style:italic;">Gambar 3.1 - Contoh Tampilan Cetak Nilai Admin</p>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.8 Jadwal</h2>
+  <p style="margin-bottom:10px;">Mengelola jadwal mengajar dan jadwal ujian:</p>
+  <ul style="margin-left:25px;">
+    <li><strong>Jadwal Mengajar</strong> - Hari, waktu, mata pelajaran, guru, dan kelas</li>
+    <li><strong>Jadwal Ujian</strong> - Tanggal, waktu, mata pelajaran, dan kelas</li>
+  </ul>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">3.9 Pengumuman</h2>
+  <p style="margin-bottom:10px;">Admin dapat membuat pengumuman untuk seluruh pengguna atau peran tertentu:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik <strong>"Buat Pengumuman"</strong></li>
+    <li style="margin-bottom:5px;">Isi judul dan isi pengumuman</li>
+    <li style="margin-bottom:5px;">Pilih target penerima (Semua / Guru / Siswa)</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Simpan"</strong></li>
+  </ol>
+</div>
+
+
+<!-- ============ BAB 4 - PANDUAN GURU ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 4 - PANDUAN GURU</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">4.1 Dashboard Guru</h2>
+  <p style="margin-bottom:15px;">Dashboard guru menampilkan statistik ringkas: jumlah kursus yang diampu, total materi yang telah dibuat, dan jumlah siswa yang terdaftar. Terdapat juga tombol Aksi Cepat untuk navigasi ke fitur utama.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.2 Kelas & Siswa</h2>
+  <p style="margin-bottom:10px;">Guru dapat melihat daftar kelas yang menjadi wali kelasnya dan melihat data siswa di setiap kelas. Termasuk catatan kelas dan progres belajar siswa.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.3 Mata Pelajaran</h2>
+  <p style="margin-bottom:10px;">Guru melihat mata pelajaran yang diampu dan mengelola enrollment siswa.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.4 Materi Pembelajaran</h2>
+  <p style="margin-bottom:10px;">Guru dapat menambah, mengedit, dan menghapus materi pembelajaran:</p>
+  <div style="background:#f0fdf4; border-left:4px solid #166534; padding:15px; margin:10px 0; border-radius:0 8px 8px 0;">
+    <p style="font-weight:bold; margin-bottom:8px;">Jenis materi yang didukung:</p>
+    <ul style="margin-left:15px;">
+      <li style="margin-bottom:5px;"><strong>Teks:</strong> Materi dalam bentuk artikel yang bisa dibaca langsung</li>
+      <li style="margin-bottom:5px;"><strong>Video:</strong> Link video YouTube yang bisa ditonton siswa</li>
+      <li style="margin-bottom:5px;"><strong>RPP/Dokumen:</strong> File dokumen yang bisa diunduh</li>
+    </ul>
+  </div>
+  <p style="margin-top:10px;"><strong>Cara menambah materi:</strong></p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik <strong>"+ Tambah Materi"</strong></li>
+    <li style="margin-bottom:5px;">Pilih mata pelajaran</li>
+    <li style="margin-bottom:5px;">Isi judul, konten, pilih tipe (teks/video/dokumen)</li>
+    <li style="margin-bottom:5px;">Atur urutan materi</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Simpan"</strong></li>
+  </ol>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.5 Forum Tugas</h2>
+  <p style="margin-bottom:10px;">Guru membuat tugas dengan foto instruksi dan menerima pengumpulan tugas dari siswa:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik <strong>"+ Buat Tugas Baru"</strong></li>
+    <li style="margin-bottom:5px;">Pilih mata pelajaran</li>
+    <li style="margin-bottom:5px;">Isi judul, deskripsi, dan batas waktu pengumpulan</li>
+    <li style="margin-bottom:5px;">Upload foto instruksi tugas (opsional)</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Simpan"</strong></li>
+  </ol>
+  <p style="margin-top:10px;"><strong>Menilai tugas siswa:</strong></p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik tugas yang ingin dinilai</li>
+    <li style="margin-bottom:5px;">Lihat daftar siswa yang sudah mengumpulkan</li>
+    <li style="margin-bottom:5px;">Klik nama siswa untuk melihat jawaban (foto)</li>
+    <li style="margin-bottom:5px;">Berikan nilai (0-100) dan feedback</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Simpan Nilai"</strong></li>
+  </ol>
+</div>
+
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.6 Kelola Ujian (UH, PTS, PAS)</h2>
+  <p style="margin-bottom:10px;">Fitur utama untuk membuat dan mengelola ujian. Guru dapat membuat 3 jenis ujian:</p>
+
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin:15px 0;">
+    <tr style="background:#166534; color:#fff;"><th style="padding:10px; border:1px solid #ddd;">Jenis</th><th style="padding:10px; border:1px solid #ddd;">Keterangan</th><th style="padding:10px; border:1px solid #ddd;">Biasanya</th></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd; font-weight:bold; color:#1d4ed8;">UH</td><td style="padding:10px; border:1px solid #ddd;">Ulangan Harian</td><td style="padding:10px; border:1px solid #ddd;">Setelah beberapa pertemuan</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:10px; border:1px solid #ddd; font-weight:bold; color:#7c3aed;">PTS</td><td style="padding:10px; border:1px solid #ddd;">Penilaian Tengah Semester</td><td style="padding:10px; border:1px solid #ddd;">Pertengahan semester</td></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd; font-weight:bold; color:#dc2626;">PAS</td><td style="padding:10px; border:1px solid #ddd;">Penilaian Akhir Semester</td><td style="padding:10px; border:1px solid #ddd;">Akhir semester</td></tr>
+  </table>
+
+  <p style="margin:15px 0 10px;"><strong>Cara membuat ujian baru:</strong></p>
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin:10px 0;">
+    <ol style="margin-left:15px;">
+      <li style="margin-bottom:8px;">Klik tombol <strong>"+ Buat Ujian Baru"</strong></li>
+      <li style="margin-bottom:8px;">Pilih <strong>Jenis Ujian</strong> (UH/PTS/PAS)</li>
+      <li style="margin-bottom:8px;">Pilih <strong>Mata Pelajaran</strong></li>
+      <li style="margin-bottom:8px;">Isi <strong>Judul</strong> dan <strong>Deskripsi</strong> ujian</li>
+      <li style="margin-bottom:8px;">Atur <strong>Tanggal</strong>, <strong>Waktu Mulai</strong>, dan <strong>Durasi</strong> (menit)</li>
+      <li style="margin-bottom:8px;">Pilih <strong>Kelas</strong> yang mengikuti ujian (bisa lebih dari satu)</li>
+      <li style="margin-bottom:8px;">Centang opsi <strong>Acak Soal</strong> dan/atau <strong>Acak Pilihan Jawaban</strong></li>
+      <li style="margin-bottom:8px;">Tambahkan soal-soal (lihat detail di bawah)</li>
+      <li style="margin-bottom:8px;">Klik <strong>"Buat Ujian"</strong></li>
+    </ol>
+  </div>
+
+  <p style="margin:15px 0 10px;"><strong>Jenis Soal yang Tersedia:</strong></p>
+  <div style="display:flex; gap:15px; flex-wrap:wrap; margin:10px 0;">
+    <div style="flex:1; min-width:200px; background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:15px;">
+      <p style="font-weight:bold; color:#1d4ed8; margin-bottom:8px;">Pilihan Ganda (PG)</p>
+      <ul style="margin-left:15px; font-size:12px;">
+        <li>4 opsi jawaban (A, B, C, D)</li>
+        <li>Pilih jawaban yang benar</li>
+        <li>Nilai dihitung otomatis oleh sistem</li>
+        <li>Pilihan jawaban bisa diacak</li>
+      </ul>
+    </div>
+    <div style="flex:1; min-width:200px; background:#faf5ff; border:1px solid #c4b5fd; border-radius:8px; padding:15px;">
+      <p style="font-weight:bold; color:#7c3aed; margin-bottom:8px;">Essay</p>
+      <ul style="margin-left:15px; font-size:12px;">
+        <li>Siswa mengetik jawaban bebas</li>
+        <li>Guru memberikan kunci jawaban (referensi)</li>
+        <li>Dinilai manual oleh guru</li>
+        <li>Skor 0-100 per soal essay</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="margin:15px 0 10px;"><strong>Bobot Penilaian:</strong></p>
+  <p style="margin-bottom:10px;">Setiap soal memiliki <strong>bobot (weight)</strong> yang menentukan seberapa besar kontribusi soal tersebut terhadap nilai akhir. Contoh: jika total bobot semua soal = 100, dan siswa menjawab benar soal berbobot 20, maka kontribusinya 20%.</p>
+
+  <div style="background:#fffde7; border:1px solid #fdd835; border-radius:8px; padding:12px 15px; margin:15px 0;">
+    <p style="font-size:12px; color:#666;"><strong>Tips:</strong> Pastikan total bobot semua soal = 100 agar penilaian proporsional. Sistem akan menampilkan total bobot saat menambah soal.</p>
+  </div>
+
+  <p style="margin:15px 0 10px;"><strong>Status Ujian:</strong></p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px; margin:10px 0;">
+    <tr style="background:#f3f4f6;"><td style="padding:8px; border:1px solid #ddd;"><span style="background:#e5e7eb; color:#374151; padding:2px 8px; border-radius:4px; font-weight:bold; font-size:11px;">Draft</span></td><td style="padding:8px; border:1px solid #ddd;">Ujian masih dalam penyusunan, belum bisa diakses siswa</td></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;"><span style="background:#fef9c3; color:#854d0e; padding:2px 8px; border-radius:4px; font-weight:bold; font-size:11px;">Terjadwal</span></td><td style="padding:8px; border:1px solid #ddd;">Ujian sudah dijadwalkan, menunggu diaktifkan</td></tr>
+    <tr style="background:#f3f4f6;"><td style="padding:8px; border:1px solid #ddd;"><span style="background:#dcfce7; color:#166534; padding:2px 8px; border-radius:4px; font-weight:bold; font-size:11px;">Aktif</span></td><td style="padding:8px; border:1px solid #ddd;">Siswa <strong>bisa mengerjakan</strong> ujian saat ini</td></tr>
+    <tr><td style="padding:8px; border:1px solid #ddd;"><span style="background:#fecaca; color:#991b1b; padding:2px 8px; border-radius:4px; font-weight:bold; font-size:11px;">Selesai</span></td><td style="padding:8px; border:1px solid #ddd;">Ujian sudah ditutup, siswa tidak bisa mengerjakan lagi</td></tr>
+  </table>
+
+  <p style="margin:15px 0 10px;"><strong>Token Ujian:</strong></p>
+  <p style="margin-bottom:10px;">Setiap ujian memiliki <strong>token 6 digit</strong> yang dibuat otomatis oleh sistem. Token ini harus diberikan guru kepada siswa sebelum mengerjakan ujian, sebagai pengaman agar siswa hanya bisa mengerjakan di waktu yang ditentukan.</p>
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:15px; margin:10px 0; text-align:center;">
+    <p style="font-size:12px; color:#166534; margin-bottom:5px;">Contoh Token Ujian:</p>
+    <p style="font-size:32px; font-family:monospace; font-weight:bold; color:#166534; letter-spacing:5px;">MTK001</p>
+    <p style="font-size:11px; color:#666; margin-top:5px;">* Guru bisa klik "Reset Token" untuk mengganti token kapan saja</p>
+  </div>
+</div>
+
+
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">4.7 Monitor Ujian Realtime</h2>
+  <p style="margin-bottom:10px;">Saat ujian berstatus <strong>Aktif</strong>, guru dapat memantau pengerjaan siswa secara langsung:</p>
+
+  <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:10px; padding:20px; margin:15px 0;">
+    <p style="font-weight:bold; color:#1d4ed8; margin-bottom:10px;">Informasi yang ditampilkan:</p>
+    <ul style="margin-left:15px;">
+      <li style="margin-bottom:5px;"><strong>Total Siswa:</strong> Jumlah siswa yang ditargetkan</li>
+      <li style="margin-bottom:5px;"><strong>Sedang Mengerjakan:</strong> Siswa yang saat ini sedang mengerjakan ujian</li>
+      <li style="margin-bottom:5px;"><strong>Sudah Submit:</strong> Siswa yang sudah mengumpulkan jawaban</li>
+      <li style="margin-bottom:5px;"><strong>Sudah Dinilai:</strong> Siswa yang nilainya sudah final</li>
+    </ul>
+    <p style="margin-top:10px; font-size:12px; color:#666;"><strong>Cara:</strong> Klik tombol <strong>"Monitor"</strong> pada ujian yang aktif. Klik <strong>"Refresh"</strong> untuk memperbarui data.</p>
+  </div>
+
+  <p style="margin:15px 0 10px;"><strong>Fitur Reset Ujian Siswa:</strong></p>
+  <p style="margin-bottom:10px;">Jika ada siswa yang mengalami kendala (misalnya: koneksi putus, browser tertutup, dll.), guru dapat <strong>mereset ujian</strong> untuk siswa tersebut sehingga siswa bisa mengerjakan ulang dari awal.</p>
+  <div style="background:#fef2f2; border:1px solid #fca5a5; border-radius:8px; padding:12px 15px; margin:10px 0;">
+    <p style="font-size:12px; color:#991b1b;"><strong>Perhatian:</strong> Reset ujian akan menghapus semua jawaban siswa yang bersangkutan. Pastikan ada alasan yang valid sebelum melakukan reset.</p>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.8 Penilaian Essay</h2>
+  <p style="margin-bottom:10px;">Untuk ujian yang memiliki soal essay, guru perlu menilai secara manual:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:8px;">Buka menu <strong>"Kelola Exam"</strong></li>
+    <li style="margin-bottom:8px;">Klik tombol <strong>"Hasil"</strong> pada ujian yang ingin dinilai</li>
+    <li style="margin-bottom:8px;">Cari siswa yang statusnya <strong>"Perlu Dinilai"</strong></li>
+    <li style="margin-bottom:8px;">Klik tombol <strong>"Nilai Essay"</strong></li>
+    <li style="margin-bottom:8px;">Sistem menampilkan:
+      <ul style="margin-left:15px; margin-top:5px;">
+        <li>Pertanyaan essay</li>
+        <li>Kunci jawaban (referensi guru)</li>
+        <li>Jawaban yang ditulis siswa</li>
+      </ul>
+    </li>
+    <li style="margin-bottom:8px;">Berikan nilai <strong>0 - 100</strong> untuk setiap soal essay</li>
+    <li style="margin-bottom:8px;">Klik <strong>"Selesai Menilai"</strong></li>
+  </ol>
+  <p style="margin-top:10px;">Setelah semua essay dinilai, skor akhir siswa akan dihitung otomatis berdasarkan bobot soal PG + Essay.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.9 Absensi</h2>
+  <p style="margin-bottom:10px;">Guru mencatat kehadiran siswa per tanggal:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Pilih kelas</li>
+    <li style="margin-bottom:5px;">Pilih tanggal</li>
+    <li style="margin-bottom:5px;">Centang status setiap siswa: <strong>Hadir, Sakit, Izin, atau Alpa</strong></li>
+    <li style="margin-bottom:5px;">Klik <strong>"Simpan Absensi"</strong></li>
+  </ol>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">4.10 Cetak Nilai (Per Mata Pelajaran)</h2>
+  <p style="margin-bottom:10px;">Guru mencetak rekap nilai untuk mata pelajaran yang diampunya:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Pilih <strong>Kelas</strong></li>
+    <li style="margin-bottom:5px;">Pilih <strong>Mata Pelajaran</strong></li>
+    <li style="margin-bottom:5px;">Sistem menampilkan tabel lengkap:</li>
+  </ol>
+
+  <!-- Grade table screenshot -->
+  <div style="border:2px dashed #86efac; border-radius:10px; padding:15px; margin:15px 0; background:#f8fffe; overflow-x:auto;">
+    <table style="width:100%; border-collapse:collapse; font-size:9px;">
+      <tr style="background:#166534; color:#fff;">
+        <th style="padding:5px; border:1px solid #ddd;">No</th>
+        <th style="padding:5px; border:1px solid #ddd;">Nama</th>
+        <th style="padding:5px; border:1px solid #ddd;" colspan="2">Tugas</th>
+        <th style="padding:5px; border:1px solid #ddd;" colspan="3">UH</th>
+        <th style="padding:5px; border:1px solid #ddd;" colspan="2">PTS</th>
+        <th style="padding:5px; border:1px solid #ddd;" colspan="2">PAS</th>
+        <th style="padding:5px; border:1px solid #ddd; background:#854d0e;">Nilai Akhir</th>
+      </tr>
+      <tr style="background:#f3f4f6; font-size:8px;">
+        <td style="padding:3px; border:1px solid #ddd;"></td><td style="padding:3px; border:1px solid #ddd;"></td>
+        <td style="padding:3px; border:1px solid #ddd; color:blue;">T1</td><td style="padding:3px; border:1px solid #ddd; color:blue;">Avg</td>
+        <td style="padding:3px; border:1px solid #ddd; color:green;">UH1</td><td style="padding:3px; border:1px solid #ddd; color:green;">UH2</td><td style="padding:3px; border:1px solid #ddd; color:green;">Avg</td>
+        <td style="padding:3px; border:1px solid #ddd; color:purple;">PTS1</td><td style="padding:3px; border:1px solid #ddd; color:purple;">Avg</td>
+        <td style="padding:3px; border:1px solid #ddd; color:red;">PAS1</td><td style="padding:3px; border:1px solid #ddd; color:red;">Avg</td>
+        <td style="padding:3px; border:1px solid #ddd;"></td>
+      </tr>
+      <tr><td style="padding:4px; border:1px solid #ddd;">1</td><td style="padding:4px; border:1px solid #ddd;">Andi</td><td style="padding:4px; border:1px solid #ddd;">85</td><td style="padding:4px; border:1px solid #ddd; font-weight:bold;">85</td><td style="padding:4px; border:1px solid #ddd;">78</td><td style="padding:4px; border:1px solid #ddd;">82</td><td style="padding:4px; border:1px solid #ddd; font-weight:bold;">80</td><td style="padding:4px; border:1px solid #ddd;">75</td><td style="padding:4px; border:1px solid #ddd; font-weight:bold;">75</td><td style="padding:4px; border:1px solid #ddd;">70</td><td style="padding:4px; border:1px solid #ddd; font-weight:bold;">70</td><td style="padding:4px; border:1px solid #ddd; font-weight:bold; color:green;">77</td></tr>
+    </table>
+    <p style="font-size:11px; color:#666; margin-top:10px; font-style:italic; text-align:center;">Gambar 4.1 - Contoh Tabel Cetak Nilai Guru</p>
+  </div>
+
+  <p style="margin-top:10px;"><strong>Bobot perhitungan Nilai Akhir:</strong></p>
+  <div style="background:#eff6ff; border:1px solid #93c5fd; border-radius:8px; padding:15px; margin:10px 0;">
+    <table style="width:60%; border-collapse:collapse; font-size:13px;">
+      <tr><td style="padding:5px;"><strong>Tugas</strong></td><td style="padding:5px;">= 20%</td></tr>
+      <tr><td style="padding:5px;"><strong>Ulangan Harian (UH)</strong></td><td style="padding:5px;">= 25%</td></tr>
+      <tr><td style="padding:5px;"><strong>PTS</strong></td><td style="padding:5px;">= 25%</td></tr>
+      <tr><td style="padding:5px;"><strong>PAS</strong></td><td style="padding:5px;">= 30%</td></tr>
+      <tr style="border-top:2px solid #93c5fd;"><td style="padding:5px;"><strong>TOTAL</strong></td><td style="padding:5px;"><strong>= 100%</strong></td></tr>
+    </table>
+  </div>
+
+  <p style="margin-top:10px;">Fitur tambahan: <strong>Export CSV</strong> (download file spreadsheet) dan <strong>Cetak/Print</strong> (print langsung dari browser).</p>
+</div>
+
+
+<!-- ============ BAB 5 - PANDUAN SISWA ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 5 - PANDUAN SISWA</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">5.1 Dashboard Siswa</h2>
+  <p style="margin-bottom:15px;">Setelah login, siswa melihat dashboard dengan informasi: jumlah kursus yang diikuti, total materi yang tersedia, dan rata-rata progres belajar. Terdapat tombol cepat untuk langsung mengakses kursus atau materi.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">5.2 Materi Pembelajaran & E-Learning</h2>
+  <p style="margin-bottom:10px;">Siswa mengakses materi dari mata pelajaran yang diikuti:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik menu <strong>"Materi Pembelajaran"</strong> untuk mendaftar kursus baru</li>
+    <li style="margin-bottom:5px;">Klik menu <strong>"E-Learning"</strong> untuk membaca materi</li>
+    <li style="margin-bottom:5px;">Baca materi secara berurutan (materi terkunci sampai materi sebelumnya dibaca)</li>
+    <li style="margin-bottom:5px;">Setelah semua materi selesai dibaca, ujian akan terbuka</li>
+  </ol>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">5.3 Mengerjakan Ujian</h2>
+  <p style="margin-bottom:10px;">Langkah-langkah mengerjakan ujian:</p>
+
+  <div style="background:#f0fdf4; border:1px solid #86efac; border-radius:10px; padding:20px; margin:15px 0;">
+    <p style="font-weight:bold; color:#166534; margin-bottom:15px;">Langkah demi Langkah:</p>
+    <ol style="margin-left:15px;">
+      <li style="margin-bottom:10px;">
+        <strong>Buka menu "Exam"</strong><br>
+        <span style="font-size:12px; color:#666;">Kamu akan melihat daftar ujian yang tersedia. Filter berdasarkan UH/PTS/PAS jika perlu.</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <strong>Klik tombol "Kerjakan"</strong><br>
+        <span style="font-size:12px; color:#666;">Hanya ujian berstatus Aktif yang bisa dikerjakan.</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <strong>Masukkan Token Ujian</strong><br>
+        <span style="font-size:12px; color:#666;">Token 6 digit diberikan oleh guru. Ketik token lalu klik "Mulai Ujian".</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <strong>Kerjakan Soal</strong><br>
+        <span style="font-size:12px; color:#666;">Jawab soal satu per satu. Untuk PG: klik pilihan jawaban. Untuk Essay: ketik jawaban di kotak teks.</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <strong>Perhatikan Timer</strong><br>
+        <span style="font-size:12px; color:#666;">Di pojok kanan atas ada countdown timer. Jika waktu habis, jawaban otomatis terkirim!</span>
+      </li>
+      <li style="margin-bottom:10px;">
+        <strong>Klik "Kumpulkan Ujian"</strong><br>
+        <span style="font-size:12px; color:#666;">Setelah semua soal dijawab, klik tombol ini untuk mengirim jawaban.</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Exam screenshot -->
+  <div style="border:2px dashed #86efac; border-radius:10px; padding:20px; text-align:center; margin:15px 0; background:#f8fffe;">
+    <div style="max-width:350px; margin:0 auto; background:#fff; border-radius:10px; padding:20px; box-shadow:0 2px 10px rgba(0,0,0,0.08);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+        <div><p style="font-size:11px; font-weight:bold; color:#333;">UH 1: Pengenalan Bilangan</p><p style="font-size:9px; color:#999;">Soal 1 dari 5</p></div>
+        <div style="background:#dcfce7; color:#166534; padding:4px 8px; border-radius:5px; font-size:10px; font-weight:bold;">28:45</div>
+      </div>
+      <p style="font-size:12px; color:#333; text-align:left; margin-bottom:12px; font-weight:500;">Bilangan bulat positif terkecil adalah...</p>
+      <div style="text-align:left;">
+        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:8px 12px; margin:5px 0; font-size:11px; display:flex; align-items:center; gap:8px;"><span style="width:20px; height:20px; background:#e5e7eb; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold;">A</span> 0</div>
+        <div style="border:2px solid #166534; border-radius:8px; padding:8px 12px; margin:5px 0; font-size:11px; background:#f0fdf4; display:flex; align-items:center; gap:8px;"><span style="width:20px; height:20px; background:#166534; color:#fff; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold;">B</span> 1</div>
+        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:8px 12px; margin:5px 0; font-size:11px; display:flex; align-items:center; gap:8px;"><span style="width:20px; height:20px; background:#e5e7eb; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold;">C</span> -1</div>
+        <div style="border:1px solid #e5e7eb; border-radius:8px; padding:8px 12px; margin:5px 0; font-size:11px; display:flex; align-items:center; gap:8px;"><span style="width:20px; height:20px; background:#e5e7eb; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold;">D</span> 2</div>
+      </div>
+    </div>
+    <p style="font-size:11px; color:#666; margin-top:15px; font-style:italic;">Gambar 5.1 - Tampilan Mengerjakan Ujian Pilihan Ganda</p>
+  </div>
+
+  <div style="background:#fffde7; border:1px solid #fdd835; border-radius:8px; padding:12px 15px; margin:15px 0;">
+    <p style="font-size:12px; color:#666;"><strong>Catatan Penting untuk Siswa:</strong></p>
+    <ul style="margin-left:15px; font-size:12px; margin-top:5px;">
+      <li>Jangan refresh halaman saat mengerjakan ujian</li>
+      <li>Pastikan koneksi internet stabil</li>
+      <li>Jika ada masalah, segera hubungi guru untuk reset ujian</li>
+      <li>Soal essay dinilai manual oleh guru, jadi nilai akhir bisa berubah setelah penilaian</li>
+    </ul>
+  </div>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">5.4 Tugas</h2>
+  <p style="margin-bottom:10px;">Siswa melihat daftar tugas dan mengumpulkan jawaban berupa foto:</p>
+  <ol style="margin-left:25px;">
+    <li style="margin-bottom:5px;">Klik menu <strong>"Tugas"</strong></li>
+    <li style="margin-bottom:5px;">Lihat tugas yang belum dikerjakan</li>
+    <li style="margin-bottom:5px;">Klik tugas untuk melihat instruksi</li>
+    <li style="margin-bottom:5px;">Upload foto jawaban</li>
+    <li style="margin-bottom:5px;">Klik <strong>"Kirim"</strong></li>
+  </ol>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">5.5 Pengumuman</h2>
+  <p style="margin-bottom:10px;">Siswa dapat melihat pengumuman dari admin dan guru di menu "Pengumuman".</p>
+</div>
+
+
+<!-- ============ BAB 6 - PENUTUP ============ -->
+<div class="page-break"></div>
+<div style="padding:20px 0;">
+  <h1 style="font-size:22px; color:#166534; border-bottom:3px solid #166534; padding-bottom:10px; margin-bottom:25px;">BAB 6 - PENUTUP</h1>
+
+  <h2 style="font-size:16px; color:#166534; margin:20px 0 10px;">6.1 Kesimpulan</h2>
+  <p style="text-indent:40px; margin-bottom:15px;">Sistem Manajemen Pembelajaran (LMS) SD Kartika Jaya X-2 merupakan solusi digital yang dirancang untuk mempermudah proses belajar mengajar. Dengan fitur-fitur yang lengkap mulai dari pengelolaan materi, ujian (UH/PTS/PAS), tugas, absensi, hingga cetak nilai, diharapkan seluruh aktivitas akademik dapat berjalan lebih terstruktur dan efisien.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Fitur unggulan seperti ujian berbasis token, pengacakan soal, timer otomatis, monitoring realtime, dan penilaian terstruktur memberikan pengalaman ujian yang adil dan transparan bagi seluruh siswa.</p>
+  <p style="text-indent:40px; margin-bottom:15px;">Semoga dengan adanya LMS ini, kualitas pendidikan di SD Kartika Jaya X-2 dapat terus meningkat dan memberikan pengalaman belajar yang lebih baik bagi seluruh siswa/i.</p>
+
+  <h2 style="font-size:16px; color:#166534; margin:25px 0 10px;">6.2 Kontak Bantuan</h2>
+  <p style="margin-bottom:15px;">Jika mengalami kendala dalam penggunaan sistem LMS, silakan hubungi:</p>
+  <table style="width:100%; border-collapse:collapse; font-size:13px;">
+    <tr style="background:#166534; color:#fff;"><th style="padding:10px; border:1px solid #ddd;">Keterangan</th><th style="padding:10px; border:1px solid #ddd;">Detail</th></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd;">Developer / IT Support</td><td style="padding:10px; border:1px solid #ddd;"><strong>Indra Mahardika</strong></td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:10px; border:1px solid #ddd;">Sekolah</td><td style="padding:10px; border:1px solid #ddd;">SD Kartika Jaya X-2</td></tr>
+    <tr><td style="padding:10px; border:1px solid #ddd;">Tahun Pembuatan</td><td style="padding:10px; border:1px solid #ddd;">2024</td></tr>
+    <tr style="background:#f9f9f9;"><td style="padding:10px; border:1px solid #ddd;">Versi Aplikasi</td><td style="padding:10px; border:1px solid #ddd;">1.0</td></tr>
+  </table>
+</div>
+
+<!-- ============ HALAMAN BELAKANG (COVER BELAKANG) ============ -->
+<div class="page-break"></div>
+<div style="min-height:90vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 40px;">
+  <div style="width:100px; height:100px; background:#166534; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:30px;">
+    <span style="color:#fff; font-size:40px; font-weight:bold;">K</span>
+  </div>
+  <h2 style="font-size:18px; color:#166534; margin-bottom:5px;">SD Kartika Jaya X-2</h2>
+  <p style="font-size:14px; color:#666; margin-bottom:30px;">Sistem Manajemen Pembelajaran (LMS)</p>
+  <div style="width:60px; height:2px; background:#166534; margin:15px auto;"></div>
+  <p style="font-size:12px; color:#999; margin-top:30px; max-width:300px; line-height:1.6;">
+    "Pendidikan adalah senjata paling ampuh yang dapat kamu gunakan untuk mengubah dunia."<br>
+    <em>- Nelson Mandela</em>
+  </p>
+  <div style="margin-top:60px; padding-top:20px; border-top:1px solid #eee;">
+    <p style="font-size:11px; color:#aaa;">Disusun oleh: <strong>Indra Mahardika</strong></p>
+    <p style="font-size:11px; color:#aaa;">&copy; 2024 SD Kartika Jaya X-2</p>
+    <p style="font-size:11px; color:#aaa;">Versi 1.0 - Tahun Ajaran 2024/2025</p>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<!-- Print Button -->
+<div class="no-print" style="position:fixed; bottom:20px; right:20px; z-index:9999;">
+  <button onclick="window.print()" style="background:#166534; color:#fff; border:none; padding:15px 25px; border-radius:10px; font-size:14px; font-weight:bold; cursor:pointer; box-shadow:0 4px 15px rgba(22,101,52,0.3);">
+    Cetak / Simpan sebagai PDF
+  </button>
+</div>
+</body>
+</html>
