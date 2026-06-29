@@ -142,9 +142,6 @@ export default function Sidebar() {
         {/* User info */}
         <div className="px-5 py-3 border-b border-green-600 bg-green-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-              {user.name.charAt(0).toUpperCase()}
-            </div>
             <div>
               <p className="text-sm font-medium text-white truncate">{user.name}</p>
               <p className="text-xs text-green-300 truncate">{user.email}</p>
