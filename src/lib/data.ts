@@ -1,4 +1,4 @@
-import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote, Attendance, Announcement, Exam, ExamResult, Schedule } from '@/types';
+import { User, Course, Material, Enrollment, ClassRoom, ReadingProgress, Assignment, AssignmentSubmission, ClassNote, Attendance, Announcement, Exam, ExamResult, ExamAnswer, ExamQuestion, ExamType, Schedule } from '@/types';
 
 // Default seed data
 const defaultClassRooms: ClassRoom[] = [
@@ -604,18 +604,45 @@ export function deleteAnnouncement(id: string): boolean {
 
 
 // Exam CRUD
+function generateToken(): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let token = '';
+  for (let i = 0; i < 6; i++) {
+    token += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return token;
+}
+
 const defaultExams: Exam[] = [
   {
-    id: '1', courseId: '1', guruId: '2', title: 'Exam Pertemuan 1: Pengenalan Bilangan',
-    description: 'Ujian pilihan ganda tentang pengenalan bilangan', pertemuan: 1,
+    id: '1', courseId: '1', guruId: '2', title: 'UH 1: Pengenalan Bilangan',
+    description: 'Ulangan harian tentang pengenalan bilangan', examType: 'UH', pertemuan: 1,
     questions: [
-      { id: '1', question: 'Bilangan bulat positif terkecil adalah...', options: ['0', '1', '-1', '2'], correctAnswer: 1 },
-      { id: '2', question: '1/2 dalam desimal adalah...', options: ['0.25', '0.5', '0.75', '1.0'], correctAnswer: 1 },
-      { id: '3', question: 'Yang termasuk bilangan bulat negatif adalah...', options: ['5', '0', '-3', '1'], correctAnswer: 2 },
-      { id: '4', question: 'Berapa hasil 3 + 5?', options: ['6', '7', '8', '9'], correctAnswer: 2 },
-      { id: '5', question: 'Bilangan pecahan 2/4 sama dengan...', options: ['1/4', '1/3', '1/2', '2/3'], correctAnswer: 2 },
+      { id: '1', type: 'pilihan_ganda', question: 'Bilangan bulat positif terkecil adalah...', options: ['0', '1', '-1', '2'], correctAnswer: 1, weight: 20 },
+      { id: '2', type: 'pilihan_ganda', question: '1/2 dalam desimal adalah...', options: ['0.25', '0.5', '0.75', '1.0'], correctAnswer: 1, weight: 20 },
+      { id: '3', type: 'pilihan_ganda', question: 'Yang termasuk bilangan bulat negatif adalah...', options: ['5', '0', '-3', '1'], correctAnswer: 2, weight: 20 },
+      { id: '4', type: 'pilihan_ganda', question: 'Berapa hasil 3 + 5?', options: ['6', '7', '8', '9'], correctAnswer: 2, weight: 20 },
+      { id: '5', type: 'essay', question: 'Jelaskan perbedaan antara bilangan bulat dan bilangan pecahan! Berikan masing-masing 2 contoh.', options: [], correctAnswer: 0, essayKey: 'Bilangan bulat adalah bilangan yang tidak memiliki bagian desimal (contoh: 1, 2, -3, -5). Bilangan pecahan menyatakan bagian dari keseluruhan (contoh: 1/2, 3/4).', weight: 20 },
     ],
-    duration: 15, createdAt: '2024-02-20T00:00:00Z'
+    duration: 30, scheduledDate: '2024-03-15', scheduledTime: '08:00',
+    classIds: ['1'], token: 'MTK001', shuffleQuestions: true, shuffleOptions: true,
+    status: 'scheduled', createdAt: '2024-02-20T00:00:00Z'
+  },
+  {
+    id: '2', courseId: '1', guruId: '2', title: 'PTS Matematika Semester 1',
+    description: 'Penilaian Tengah Semester untuk mata pelajaran Matematika Dasar', examType: 'PTS', pertemuan: 0,
+    questions: [
+      { id: '1', type: 'pilihan_ganda', question: 'Hasil dari 15 + 27 adalah...', options: ['40', '42', '52', '32'], correctAnswer: 1, weight: 10 },
+      { id: '2', type: 'pilihan_ganda', question: 'Hasil dari 50 - 23 adalah...', options: ['27', '37', '17', '33'], correctAnswer: 0, weight: 10 },
+      { id: '3', type: 'pilihan_ganda', question: '3 x 7 = ...', options: ['10', '14', '21', '24'], correctAnswer: 2, weight: 10 },
+      { id: '4', type: 'pilihan_ganda', question: '24 : 6 = ...', options: ['3', '4', '6', '8'], correctAnswer: 1, weight: 10 },
+      { id: '5', type: 'pilihan_ganda', question: 'Bilangan prima terkecil adalah...', options: ['0', '1', '2', '3'], correctAnswer: 2, weight: 10 },
+      { id: '6', type: 'essay', question: 'Sebutkan dan jelaskan 4 operasi hitung dasar beserta contohnya masing-masing!', options: [], correctAnswer: 0, essayKey: 'Penjumlahan (+), Pengurangan (-), Perkalian (x), Pembagian (:). Masing-masing dengan contoh.', weight: 25 },
+      { id: '7', type: 'essay', question: 'Apa yang dimaksud dengan bilangan pecahan? Berikan 3 contoh bilangan pecahan dan desimalnya!', options: [], correctAnswer: 0, essayKey: 'Bilangan pecahan adalah bilangan yang menyatakan bagian dari keseluruhan. Contoh: 1/2 = 0.5, 1/4 = 0.25, 3/4 = 0.75', weight: 25 },
+    ],
+    duration: 60, scheduledDate: '2024-04-10', scheduledTime: '08:00',
+    classIds: ['1', '3'], token: 'PTS101', shuffleQuestions: true, shuffleOptions: true,
+    status: 'scheduled', createdAt: '2024-03-01T00:00:00Z'
   },
 ];
 
@@ -637,9 +664,22 @@ export function getExamsByGuru(guruId: string): Exam[] {
   return getExams().filter((e) => e.guruId === guruId);
 }
 
-export function createExam(exam: Omit<Exam, 'id' | 'createdAt'>): Exam {
+export function getExamsByType(examType: ExamType): Exam[] {
+  return getExams().filter((e) => e.examType === examType);
+}
+
+export function getExamsByTypeAndCourse(examType: ExamType, courseId: string): Exam[] {
+  return getExams().filter((e) => e.examType === examType && e.courseId === courseId);
+}
+
+export function getExamsByClass(classId: string): Exam[] {
+  return getExams().filter((e) => e.classIds && e.classIds.includes(classId));
+}
+
+export function createExam(exam: Omit<Exam, 'id' | 'createdAt' | 'token'>): Exam {
   const exams = getExams();
-  const newExam: Exam = { ...exam, id: Date.now().toString(), createdAt: new Date().toISOString() };
+  const token = generateToken();
+  const newExam: Exam = { ...exam, token, id: Date.now().toString(), createdAt: new Date().toISOString() };
   exams.push(newExam);
   saveToStorage('lms_exams', exams);
   return newExam;
@@ -659,7 +699,30 @@ export function deleteExam(id: string): boolean {
   const filtered = exams.filter((e) => e.id !== id);
   if (filtered.length === exams.length) return false;
   saveToStorage('lms_exams', filtered);
+  // Also delete associated results
+  const results = getExamResults().filter((r) => r.examId !== id);
+  saveToStorage('lms_exam_results', results);
   return true;
+}
+
+export function regenerateExamToken(examId: string): string {
+  const newToken = generateToken();
+  updateExam(examId, { token: newToken });
+  return newToken;
+}
+
+export function activateExam(examId: string): Exam | undefined {
+  return updateExam(examId, { status: 'active' });
+}
+
+export function finishExam(examId: string): Exam | undefined {
+  return updateExam(examId, { status: 'finished' });
+}
+
+export function validateExamToken(examId: string, inputToken: string): boolean {
+  const exam = getExamById(examId);
+  if (!exam) return false;
+  return exam.token === inputToken.toUpperCase();
 }
 
 // Exam Results
@@ -679,12 +742,202 @@ export function getExamResultBySiswaAndExam(siswaId: string, examId: string): Ex
   return getExamResults().find((r) => r.siswaId === siswaId && r.examId === examId);
 }
 
+export function getInProgressResults(examId: string): ExamResult[] {
+  return getExamResults().filter((r) => r.examId === examId && r.status === 'in_progress');
+}
+
 export function submitExamResult(result: Omit<ExamResult, 'id' | 'submittedAt'>): ExamResult {
   const results = getExamResults();
+  // Remove any existing in_progress result for same student+exam
+  const filtered = results.filter((r) => !(r.siswaId === result.siswaId && r.examId === result.examId));
   const newResult: ExamResult = { ...result, id: Date.now().toString(), submittedAt: new Date().toISOString() };
+  filtered.push(newResult);
+  saveToStorage('lms_exam_results', filtered);
+  return newResult;
+}
+
+export function startExamResult(examId: string, siswaId: string): ExamResult {
+  const results = getExamResults();
+  // Check if already exists
+  const existing = results.find((r) => r.siswaId === siswaId && r.examId === examId);
+  if (existing) return existing;
+  const newResult: ExamResult = {
+    id: Date.now().toString(),
+    examId,
+    siswaId,
+    answers: [],
+    score: 0,
+    totalWeight: 0,
+    earnedWeight: 0,
+    isAutoGraded: false,
+    essayGraded: false,
+    startedAt: new Date().toISOString(),
+    submittedAt: '',
+    status: 'in_progress',
+  };
   results.push(newResult);
   saveToStorage('lms_exam_results', results);
   return newResult;
+}
+
+export function resetExamForStudent(examId: string, siswaId: string): boolean {
+  const results = getExamResults();
+  const filtered = results.filter((r) => !(r.examId === examId && r.siswaId === siswaId));
+  if (filtered.length === results.length) return false;
+  saveToStorage('lms_exam_results', filtered);
+  return true;
+}
+
+export function gradeEssayQuestion(resultId: string, questionId: string, score: number): ExamResult | undefined {
+  const results = getExamResults();
+  const index = results.findIndex((r) => r.id === resultId);
+  if (index === -1) return undefined;
+  
+  const result = results[index];
+  const essayScores = result.essayScores ? [...result.essayScores] : [];
+  const scoreIndex = essayScores.findIndex((s) => s.questionId === questionId);
+  if (scoreIndex >= 0) {
+    essayScores[scoreIndex] = { questionId, score };
+  } else {
+    essayScores.push({ questionId, score });
+  }
+  
+  // Get exam to check if all essays are graded
+  const exam = getExamById(result.examId);
+  if (!exam) return undefined;
+  
+  const essayQuestions = exam.questions.filter((q) => q.type === 'essay');
+  const allEssayGraded = essayQuestions.every((q) => essayScores.some((s) => s.questionId === q.id));
+  
+  // Recalculate total score
+  const totalWeight = exam.questions.reduce((sum, q) => sum + q.weight, 0);
+  let earnedWeight = 0;
+  
+  // Add PG scores
+  exam.questions.forEach((q) => {
+    if (q.type === 'pilihan_ganda') {
+      const answer = result.answers.find((a) => a.questionId === q.id);
+      if (answer && answer.selectedOption === q.correctAnswer) {
+        earnedWeight += q.weight;
+      }
+    } else if (q.type === 'essay') {
+      const essayScore = essayScores.find((s) => s.questionId === q.id);
+      if (essayScore) {
+        earnedWeight += (essayScore.score / 100) * q.weight;
+      }
+    }
+  });
+  
+  const finalScore = totalWeight > 0 ? Math.round((earnedWeight / totalWeight) * 100) : 0;
+  
+  results[index] = {
+    ...result,
+    essayScores,
+    essayGraded: allEssayGraded,
+    earnedWeight,
+    totalWeight,
+    score: finalScore,
+    status: allEssayGraded ? 'graded' : 'submitted',
+  };
+  
+  saveToStorage('lms_exam_results', results);
+  return results[index];
+}
+
+// Auto-grade multiple choice answers
+export function autoGradeExam(examId: string, siswaId: string, answers: ExamAnswer[]): ExamResult {
+  const exam = getExamById(examId);
+  if (!exam) throw new Error('Exam not found');
+  
+  const totalWeight = exam.questions.reduce((sum, q) => sum + q.weight, 0);
+  let earnedWeight = 0;
+  
+  const hasEssay = exam.questions.some((q) => q.type === 'essay');
+  
+  // Calculate PG scores
+  exam.questions.forEach((q) => {
+    if (q.type === 'pilihan_ganda') {
+      const answer = answers.find((a) => a.questionId === q.id);
+      if (answer && answer.selectedOption === q.correctAnswer) {
+        earnedWeight += q.weight;
+      }
+    }
+  });
+  
+  const isFullyAutoGraded = !hasEssay;
+  const score = isFullyAutoGraded 
+    ? (totalWeight > 0 ? Math.round((earnedWeight / totalWeight) * 100) : 0)
+    : 0; // Will be calculated after essay grading
+  
+  const result: Omit<ExamResult, 'id' | 'submittedAt'> = {
+    examId,
+    siswaId,
+    answers,
+    score: isFullyAutoGraded ? score : Math.round((earnedWeight / totalWeight) * 100),
+    totalWeight,
+    earnedWeight,
+    isAutoGraded: isFullyAutoGraded,
+    essayGraded: !hasEssay,
+    startedAt: new Date().toISOString(),
+    status: isFullyAutoGraded ? 'graded' : 'submitted',
+  };
+  
+  return submitExamResult(result);
+}
+
+// Shuffle questions and options for a student
+export function getShuffledExam(exam: Exam): Exam {
+  const shuffled = { ...exam };
+  let questions = [...exam.questions];
+  
+  if (exam.shuffleQuestions) {
+    // Fisher-Yates shuffle for questions
+    for (let i = questions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [questions[i], questions[j]] = [questions[j], questions[i]];
+    }
+  }
+  
+  if (exam.shuffleOptions) {
+    questions = questions.map((q) => {
+      if (q.type !== 'pilihan_ganda') return q;
+      // Shuffle options while tracking correct answer
+      const correctOption = q.options[q.correctAnswer];
+      const shuffledOptions = [...q.options];
+      for (let i = shuffledOptions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOptions[i], shuffledOptions[j]] = [shuffledOptions[j], shuffledOptions[i]];
+      }
+      const newCorrectAnswer = shuffledOptions.indexOf(correctOption);
+      return { ...q, options: shuffledOptions, correctAnswer: newCorrectAnswer };
+    });
+  }
+  
+  shuffled.questions = questions;
+  return shuffled;
+}
+
+// Export exam results as CSV data
+export function exportExamResultsCSV(examId: string): string {
+  const exam = getExamById(examId);
+  if (!exam) return '';
+  
+  const results = getExamResultsByExam(examId);
+  const users = getUsers();
+  
+  let csv = 'No,Nama Siswa,NIS,NISN,Skor,Status,Waktu Pengerjaan\n';
+  
+  results.forEach((r, idx) => {
+    const student = users.find((u) => u.id === r.siswaId);
+    if (!student) return;
+    const status = r.status === 'graded' ? 'Selesai' : r.status === 'submitted' ? 'Menunggu Penilaian' : 'Sedang Mengerjakan';
+    const duration = r.submittedAt && r.startedAt 
+      ? Math.round((new Date(r.submittedAt).getTime() - new Date(r.startedAt).getTime()) / 60000) + ' menit'
+      : '-';
+    csv += `${idx + 1},${student.name},${student.nis || '-'},${student.nisn || '-'},${r.score},${status},${duration}\n`;
+  });
+  
+  return csv;
 }
 
 
