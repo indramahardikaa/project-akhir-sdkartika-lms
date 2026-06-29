@@ -117,11 +117,18 @@ export interface Announcement {
 
 
 
+export type ExamType = 'UH' | 'PTS' | 'PAS'; // Ulangan Harian, Penilaian Tengah Semester, Penilaian Akhir Semester
+export type QuestionType = 'pilihan_ganda' | 'essay';
+export type ExamStatus = 'draft' | 'scheduled' | 'active' | 'finished';
+
 export interface ExamQuestion {
   id: string;
+  type: QuestionType;
   question: string;
-  options: string[]; // 4 options (A, B, C, D)
-  correctAnswer: number; // index 0-3
+  options: string[]; // 4 options (A, B, C, D) - only for pilihan_ganda
+  correctAnswer: number; // index 0-3 - only for pilihan_ganda
+  essayKey?: string; // answer key for essay (reference for teacher grading)
+  weight: number; // bobot penilaian (point value for this question)
 }
 
 export interface Exam {
@@ -130,19 +137,41 @@ export interface Exam {
   guruId: string;
   title: string;
   description: string;
-  pertemuan: number; // pertemuan ke-berapa
+  examType: ExamType; // UH, PTS, PAS
+  pertemuan: number; // pertemuan ke-berapa (relevant for UH)
   questions: ExamQuestion[];
   duration: number; // in minutes
+  scheduledDate: string; // tanggal ujian dijadwalkan
+  scheduledTime: string; // waktu mulai ujian (e.g., "08:00")
+  classIds: string[]; // kelas yang ditargetkan
+  token: string; // token untuk masuk ujian (auto-generated)
+  shuffleQuestions: boolean; // acak urutan soal
+  shuffleOptions: boolean; // acak pilihan jawaban (khusus PG)
+  status: ExamStatus;
   createdAt: string;
+}
+
+export interface ExamAnswer {
+  questionId: string;
+  type: QuestionType;
+  selectedOption?: number; // for pilihan_ganda (index 0-3)
+  essayAnswer?: string; // for essay
 }
 
 export interface ExamResult {
   id: string;
   examId: string;
   siswaId: string;
-  answers: number[]; // student's answers (index 0-3 for each question)
-  score: number; // calculated score (0-100)
-  submittedAt: string;
+  answers: ExamAnswer[]; // student's answers
+  score: number; // calculated score (0-100), auto for PG, manual for essay
+  totalWeight: number; // total weight of all questions
+  earnedWeight: number; // weight earned by student
+  isAutoGraded: boolean; // true if all PG and auto-calculated
+  essayGraded: boolean; // true if all essay questions have been graded
+  essayScores?: { questionId: string; score: number }[]; // individual essay scores given by guru
+  startedAt: string; // when student started the exam
+  submittedAt: string; // when student submitted or time expired
+  status: 'in_progress' | 'submitted' | 'graded'; // status of submission
 }
 
 export interface Schedule {
